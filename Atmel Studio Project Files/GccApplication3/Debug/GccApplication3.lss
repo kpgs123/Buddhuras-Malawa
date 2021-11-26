@@ -1,0 +1,1923 @@
+
+GccApplication3.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000aea  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000002  00800060  00000aea  00000b7e  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          0000000c  00800062  00800062  00000b80  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000b80  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000bb0  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000050  00000000  00000000  00000bec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000012b9  00000000  00000000  00000c3c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000636  00000000  00000000  00001ef5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000007bc  00000000  00000000  0000252b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000000dc  00000000  00000000  00002ce8  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000003c1  00000000  00000000  00002dc4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000741  00000000  00000000  00003185  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000148  00000000  00000000  000038c6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0e c0       	rjmp	.+28     	; 0x1e <__ctors_end>
+   2:	28 c0       	rjmp	.+80     	; 0x54 <__bad_interrupt>
+   4:	27 c0       	rjmp	.+78     	; 0x54 <__bad_interrupt>
+   6:	26 c0       	rjmp	.+76     	; 0x54 <__bad_interrupt>
+   8:	25 c0       	rjmp	.+74     	; 0x54 <__bad_interrupt>
+   a:	24 c0       	rjmp	.+72     	; 0x54 <__bad_interrupt>
+   c:	23 c0       	rjmp	.+70     	; 0x54 <__bad_interrupt>
+   e:	22 c0       	rjmp	.+68     	; 0x54 <__bad_interrupt>
+  10:	21 c0       	rjmp	.+66     	; 0x54 <__bad_interrupt>
+  12:	20 c0       	rjmp	.+64     	; 0x54 <__bad_interrupt>
+  14:	1c c5       	rjmp	.+2616   	; 0xa4e <__vector_10>
+  16:	1e c0       	rjmp	.+60     	; 0x54 <__bad_interrupt>
+  18:	1d c0       	rjmp	.+58     	; 0x54 <__bad_interrupt>
+  1a:	1c c0       	rjmp	.+56     	; 0x54 <__bad_interrupt>
+  1c:	1b c0       	rjmp	.+54     	; 0x54 <__bad_interrupt>
+
+0000001e <__ctors_end>:
+  1e:	11 24       	eor	r1, r1
+  20:	1f be       	out	0x3f, r1	; 63
+  22:	cf e5       	ldi	r28, 0x5F	; 95
+  24:	d2 e0       	ldi	r29, 0x02	; 2
+  26:	de bf       	out	0x3e, r29	; 62
+  28:	cd bf       	out	0x3d, r28	; 61
+
+0000002a <__do_copy_data>:
+  2a:	10 e0       	ldi	r17, 0x00	; 0
+  2c:	a0 e6       	ldi	r26, 0x60	; 96
+  2e:	b0 e0       	ldi	r27, 0x00	; 0
+  30:	ea ee       	ldi	r30, 0xEA	; 234
+  32:	fa e0       	ldi	r31, 0x0A	; 10
+  34:	02 c0       	rjmp	.+4      	; 0x3a <__do_copy_data+0x10>
+  36:	05 90       	lpm	r0, Z+
+  38:	0d 92       	st	X+, r0
+  3a:	a2 36       	cpi	r26, 0x62	; 98
+  3c:	b1 07       	cpc	r27, r17
+  3e:	d9 f7       	brne	.-10     	; 0x36 <__do_copy_data+0xc>
+
+00000040 <__do_clear_bss>:
+  40:	20 e0       	ldi	r18, 0x00	; 0
+  42:	a2 e6       	ldi	r26, 0x62	; 98
+  44:	b0 e0       	ldi	r27, 0x00	; 0
+  46:	01 c0       	rjmp	.+2      	; 0x4a <.do_clear_bss_start>
+
+00000048 <.do_clear_bss_loop>:
+  48:	1d 92       	st	X+, r1
+
+0000004a <.do_clear_bss_start>:
+  4a:	ae 36       	cpi	r26, 0x6E	; 110
+  4c:	b2 07       	cpc	r27, r18
+  4e:	e1 f7       	brne	.-8      	; 0x48 <.do_clear_bss_loop>
+  50:	19 d1       	rcall	.+562    	; 0x284 <main>
+  52:	49 c5       	rjmp	.+2706   	; 0xae6 <_exit>
+
+00000054 <__bad_interrupt>:
+  54:	d5 cf       	rjmp	.-86     	; 0x0 <__vectors>
+
+00000056 <millis>:
+
+unsigned long time_from_start; // for millis function
+
+unsigned long millis() //arduino millis function like one
+{
+	return time_from_start;
+  56:	60 91 6a 00 	lds	r22, 0x006A	; 0x80006a <time_from_start>
+  5a:	70 91 6b 00 	lds	r23, 0x006B	; 0x80006b <time_from_start+0x1>
+  5e:	80 91 6c 00 	lds	r24, 0x006C	; 0x80006c <time_from_start+0x2>
+  62:	90 91 6d 00 	lds	r25, 0x006D	; 0x80006d <time_from_start+0x3>
+}
+  66:	08 95       	ret
+
+00000068 <shiftOut>:
+
+uint8_t t = 100; //One frame time
+
+
+void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, int val) // arduino shiftOut function like one
+{
+  68:	d9 01       	movw	r26, r18
+	char i;
+
+	for (i = 0; i < 8; i++)  {
+  6a:	90 e0       	ldi	r25, 0x00	; 0
+  6c:	5c c0       	rjmp	.+184    	; 0x126 <shiftOut+0xbe>
+		if (bitOrder == LSBFIRST){
+  6e:	41 11       	cpse	r20, r1
+  70:	22 c0       	rjmp	.+68     	; 0xb6 <shiftOut+0x4e>
+			(val & (1 << i))?SET_PIN(PORTB,dataPin):CLEAR_PIN(PORTB,dataPin); // shift data in LSBFIRST mode
+  72:	9d 01       	movw	r18, r26
+  74:	09 2e       	mov	r0, r25
+  76:	02 c0       	rjmp	.+4      	; 0x7c <shiftOut+0x14>
+  78:	35 95       	asr	r19
+  7a:	27 95       	ror	r18
+  7c:	0a 94       	dec	r0
+  7e:	e2 f7       	brpl	.-8      	; 0x78 <shiftOut+0x10>
+  80:	20 ff       	sbrs	r18, 0
+  82:	0c c0       	rjmp	.+24     	; 0x9c <shiftOut+0x34>
+  84:	58 b3       	in	r21, 0x18	; 24
+  86:	21 e0       	ldi	r18, 0x01	; 1
+  88:	30 e0       	ldi	r19, 0x00	; 0
+  8a:	08 2e       	mov	r0, r24
+  8c:	02 c0       	rjmp	.+4      	; 0x92 <shiftOut+0x2a>
+  8e:	22 0f       	add	r18, r18
+  90:	33 1f       	adc	r19, r19
+  92:	0a 94       	dec	r0
+  94:	e2 f7       	brpl	.-8      	; 0x8e <shiftOut+0x26>
+  96:	25 2b       	or	r18, r21
+  98:	28 bb       	out	0x18, r18	; 24
+  9a:	31 c0       	rjmp	.+98     	; 0xfe <shiftOut+0x96>
+  9c:	58 b3       	in	r21, 0x18	; 24
+  9e:	21 e0       	ldi	r18, 0x01	; 1
+  a0:	30 e0       	ldi	r19, 0x00	; 0
+  a2:	08 2e       	mov	r0, r24
+  a4:	02 c0       	rjmp	.+4      	; 0xaa <shiftOut+0x42>
+  a6:	22 0f       	add	r18, r18
+  a8:	33 1f       	adc	r19, r19
+  aa:	0a 94       	dec	r0
+  ac:	e2 f7       	brpl	.-8      	; 0xa6 <shiftOut+0x3e>
+  ae:	20 95       	com	r18
+  b0:	25 23       	and	r18, r21
+  b2:	28 bb       	out	0x18, r18	; 24
+  b4:	24 c0       	rjmp	.+72     	; 0xfe <shiftOut+0x96>
+		}
+		else{
+			(val & (1 << (7 - i)))?SET_PIN(PORTB,dataPin):CLEAR_PIN(PORTB,dataPin); // shift data in MSBFIRST mode
+  b6:	e7 e0       	ldi	r30, 0x07	; 7
+  b8:	f0 e0       	ldi	r31, 0x00	; 0
+  ba:	e9 1b       	sub	r30, r25
+  bc:	f1 09       	sbc	r31, r1
+  be:	9d 01       	movw	r18, r26
+  c0:	02 c0       	rjmp	.+4      	; 0xc6 <shiftOut+0x5e>
+  c2:	35 95       	asr	r19
+  c4:	27 95       	ror	r18
+  c6:	ea 95       	dec	r30
+  c8:	e2 f7       	brpl	.-8      	; 0xc2 <shiftOut+0x5a>
+  ca:	20 ff       	sbrs	r18, 0
+  cc:	0c c0       	rjmp	.+24     	; 0xe6 <shiftOut+0x7e>
+  ce:	58 b3       	in	r21, 0x18	; 24
+  d0:	21 e0       	ldi	r18, 0x01	; 1
+  d2:	30 e0       	ldi	r19, 0x00	; 0
+  d4:	08 2e       	mov	r0, r24
+  d6:	02 c0       	rjmp	.+4      	; 0xdc <shiftOut+0x74>
+  d8:	22 0f       	add	r18, r18
+  da:	33 1f       	adc	r19, r19
+  dc:	0a 94       	dec	r0
+  de:	e2 f7       	brpl	.-8      	; 0xd8 <shiftOut+0x70>
+  e0:	25 2b       	or	r18, r21
+  e2:	28 bb       	out	0x18, r18	; 24
+  e4:	0c c0       	rjmp	.+24     	; 0xfe <shiftOut+0x96>
+  e6:	28 b3       	in	r18, 0x18	; 24
+  e8:	e1 e0       	ldi	r30, 0x01	; 1
+  ea:	f0 e0       	ldi	r31, 0x00	; 0
+  ec:	08 2e       	mov	r0, r24
+  ee:	02 c0       	rjmp	.+4      	; 0xf4 <shiftOut+0x8c>
+  f0:	ee 0f       	add	r30, r30
+  f2:	ff 1f       	adc	r31, r31
+  f4:	0a 94       	dec	r0
+  f6:	e2 f7       	brpl	.-8      	; 0xf0 <shiftOut+0x88>
+  f8:	e0 95       	com	r30
+  fa:	e2 23       	and	r30, r18
+  fc:	e8 bb       	out	0x18, r30	; 24
+		}
+		
+		//delayMicroseconds(20);
+		SET_PIN(PORTB, clockPin); // shift pin High
+  fe:	38 b3       	in	r19, 0x18	; 24
+ 100:	e1 e0       	ldi	r30, 0x01	; 1
+ 102:	f0 e0       	ldi	r31, 0x00	; 0
+ 104:	06 2e       	mov	r0, r22
+ 106:	02 c0       	rjmp	.+4      	; 0x10c <shiftOut+0xa4>
+ 108:	ee 0f       	add	r30, r30
+ 10a:	ff 1f       	adc	r31, r31
+ 10c:	0a 94       	dec	r0
+ 10e:	e2 f7       	brpl	.-8      	; 0x108 <shiftOut+0xa0>
+ 110:	3e 2b       	or	r19, r30
+ 112:	38 bb       	out	0x18, r19	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 114:	25 e3       	ldi	r18, 0x35	; 53
+ 116:	2a 95       	dec	r18
+ 118:	f1 f7       	brne	.-4      	; 0x116 <shiftOut+0xae>
+ 11a:	00 00       	nop
+		_delay_us(shiftOutDelay); // delay for rise-up
+		CLEAR_PIN(PORTB, clockPin); //  shift pin Low
+ 11c:	38 b3       	in	r19, 0x18	; 24
+ 11e:	e0 95       	com	r30
+ 120:	e3 23       	and	r30, r19
+ 122:	e8 bb       	out	0x18, r30	; 24
+
+void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, int val) // arduino shiftOut function like one
+{
+	char i;
+
+	for (i = 0; i < 8; i++)  {
+ 124:	9f 5f       	subi	r25, 0xFF	; 255
+ 126:	98 30       	cpi	r25, 0x08	; 8
+ 128:	08 f4       	brcc	.+2      	; 0x12c <shiftOut+0xc4>
+ 12a:	a1 cf       	rjmp	.-190    	; 0x6e <shiftOut+0x6>
+		//delayMicroseconds(20);
+		SET_PIN(PORTB, clockPin); // shift pin High
+		_delay_us(shiftOutDelay); // delay for rise-up
+		CLEAR_PIN(PORTB, clockPin); //  shift pin Low
+	}
+}
+ 12c:	08 95       	ret
+
+0000012e <turnOnLED>:
+
+void turnOnLED(int * reg_vals_ind, int column, int row) // get register values after given led is turned on
+{
+ 12e:	fc 01       	movw	r30, r24
+	if (column > 15)
+ 130:	60 31       	cpi	r22, 0x10	; 16
+ 132:	71 05       	cpc	r23, r1
+ 134:	a4 f0       	brlt	.+40     	; 0x15e <turnOnLED+0x30>
+	{
+		*(reg_vals_ind + 1) |= (1 << (column - 16));
+ 136:	60 51       	subi	r22, 0x10	; 16
+ 138:	71 09       	sbc	r23, r1
+ 13a:	81 e0       	ldi	r24, 0x01	; 1
+ 13c:	90 e0       	ldi	r25, 0x00	; 0
+ 13e:	02 c0       	rjmp	.+4      	; 0x144 <turnOnLED+0x16>
+ 140:	88 0f       	add	r24, r24
+ 142:	99 1f       	adc	r25, r25
+ 144:	6a 95       	dec	r22
+ 146:	e2 f7       	brpl	.-8      	; 0x140 <turnOnLED+0x12>
+ 148:	22 81       	ldd	r18, Z+2	; 0x02
+ 14a:	33 81       	ldd	r19, Z+3	; 0x03
+ 14c:	82 2b       	or	r24, r18
+ 14e:	93 2b       	or	r25, r19
+ 150:	93 83       	std	Z+3, r25	; 0x03
+ 152:	82 83       	std	Z+2, r24	; 0x02
+		*(reg_vals_ind + 2) = 0;
+ 154:	15 82       	std	Z+5, r1	; 0x05
+ 156:	14 82       	std	Z+4, r1	; 0x04
+		*(reg_vals_ind + 3) = 0;
+ 158:	17 82       	std	Z+7, r1	; 0x07
+ 15a:	16 82       	std	Z+6, r1	; 0x06
+ 15c:	24 c0       	rjmp	.+72     	; 0x1a6 <turnOnLED+0x78>
+	}
+
+	else if (column > 7)
+ 15e:	68 30       	cpi	r22, 0x08	; 8
+ 160:	71 05       	cpc	r23, r1
+ 162:	94 f0       	brlt	.+36     	; 0x188 <turnOnLED+0x5a>
+	{
+		*(reg_vals_ind + 1) |= 0b00000000;
+		*(reg_vals_ind + 2) |= (1 << (column - 8));
+ 164:	68 50       	subi	r22, 0x08	; 8
+ 166:	71 09       	sbc	r23, r1
+ 168:	81 e0       	ldi	r24, 0x01	; 1
+ 16a:	90 e0       	ldi	r25, 0x00	; 0
+ 16c:	02 c0       	rjmp	.+4      	; 0x172 <turnOnLED+0x44>
+ 16e:	88 0f       	add	r24, r24
+ 170:	99 1f       	adc	r25, r25
+ 172:	6a 95       	dec	r22
+ 174:	e2 f7       	brpl	.-8      	; 0x16e <turnOnLED+0x40>
+ 176:	24 81       	ldd	r18, Z+4	; 0x04
+ 178:	35 81       	ldd	r19, Z+5	; 0x05
+ 17a:	82 2b       	or	r24, r18
+ 17c:	93 2b       	or	r25, r19
+ 17e:	95 83       	std	Z+5, r25	; 0x05
+ 180:	84 83       	std	Z+4, r24	; 0x04
+		*(reg_vals_ind + 3) = 0;
+ 182:	17 82       	std	Z+7, r1	; 0x07
+ 184:	16 82       	std	Z+6, r1	; 0x06
+ 186:	0f c0       	rjmp	.+30     	; 0x1a6 <turnOnLED+0x78>
+	}
+
+	else
+	{
+		*(reg_vals_ind + 1) |= 0b00000000;
+		*(reg_vals_ind + 2) = 0;
+ 188:	15 82       	std	Z+5, r1	; 0x05
+ 18a:	14 82       	std	Z+4, r1	; 0x04
+		*(reg_vals_ind + 3) |= (1 << column);
+ 18c:	81 e0       	ldi	r24, 0x01	; 1
+ 18e:	90 e0       	ldi	r25, 0x00	; 0
+ 190:	02 c0       	rjmp	.+4      	; 0x196 <turnOnLED+0x68>
+ 192:	88 0f       	add	r24, r24
+ 194:	99 1f       	adc	r25, r25
+ 196:	6a 95       	dec	r22
+ 198:	e2 f7       	brpl	.-8      	; 0x192 <turnOnLED+0x64>
+ 19a:	26 81       	ldd	r18, Z+6	; 0x06
+ 19c:	37 81       	ldd	r19, Z+7	; 0x07
+ 19e:	82 2b       	or	r24, r18
+ 1a0:	93 2b       	or	r25, r19
+ 1a2:	97 83       	std	Z+7, r25	; 0x07
+ 1a4:	86 83       	std	Z+6, r24	; 0x06
+	}
+	
+	if (row > 5)
+ 1a6:	46 30       	cpi	r20, 0x06	; 6
+ 1a8:	51 05       	cpc	r21, r1
+ 1aa:	84 f0       	brlt	.+32     	; 0x1cc <turnOnLED+0x9e>
+	{
+		*(reg_vals_ind) |= 1 << (row - 6);
+ 1ac:	46 50       	subi	r20, 0x06	; 6
+ 1ae:	51 09       	sbc	r21, r1
+ 1b0:	81 e0       	ldi	r24, 0x01	; 1
+ 1b2:	90 e0       	ldi	r25, 0x00	; 0
+ 1b4:	02 c0       	rjmp	.+4      	; 0x1ba <turnOnLED+0x8c>
+ 1b6:	88 0f       	add	r24, r24
+ 1b8:	99 1f       	adc	r25, r25
+ 1ba:	4a 95       	dec	r20
+ 1bc:	e2 f7       	brpl	.-8      	; 0x1b6 <turnOnLED+0x88>
+ 1be:	20 81       	ld	r18, Z
+ 1c0:	31 81       	ldd	r19, Z+1	; 0x01
+ 1c2:	82 2b       	or	r24, r18
+ 1c4:	93 2b       	or	r25, r19
+ 1c6:	91 83       	std	Z+1, r25	; 0x01
+ 1c8:	80 83       	st	Z, r24
+ 1ca:	08 95       	ret
+	}
+	else
+	{
+		*(reg_vals_ind + 1) |= 1 << (row + 2);
+ 1cc:	4e 5f       	subi	r20, 0xFE	; 254
+ 1ce:	5f 4f       	sbci	r21, 0xFF	; 255
+ 1d0:	81 e0       	ldi	r24, 0x01	; 1
+ 1d2:	90 e0       	ldi	r25, 0x00	; 0
+ 1d4:	02 c0       	rjmp	.+4      	; 0x1da <turnOnLED+0xac>
+ 1d6:	88 0f       	add	r24, r24
+ 1d8:	99 1f       	adc	r25, r25
+ 1da:	4a 95       	dec	r20
+ 1dc:	e2 f7       	brpl	.-8      	; 0x1d6 <turnOnLED+0xa8>
+ 1de:	22 81       	ldd	r18, Z+2	; 0x02
+ 1e0:	33 81       	ldd	r19, Z+3	; 0x03
+ 1e2:	82 2b       	or	r24, r18
+ 1e4:	93 2b       	or	r25, r19
+ 1e6:	93 83       	std	Z+3, r25	; 0x03
+ 1e8:	82 83       	std	Z+2, r24	; 0x02
+ 1ea:	08 95       	ret
+
+000001ec <writeRegVals>:
+	}
+}
+
+void writeRegVals(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin, int * reg_index_0)
+{
+ 1ec:	cf 92       	push	r12
+ 1ee:	df 92       	push	r13
+ 1f0:	ef 92       	push	r14
+ 1f2:	ff 92       	push	r15
+ 1f4:	0f 93       	push	r16
+ 1f6:	1f 93       	push	r17
+ 1f8:	cf 93       	push	r28
+ 1fa:	df 93       	push	r29
+ 1fc:	c8 2e       	mov	r12, r24
+ 1fe:	d6 2e       	mov	r13, r22
+ 200:	79 01       	movw	r14, r18
+	digitalWrite(latchPin, LOW); // shiftOut data
+ 202:	88 b3       	in	r24, 0x18	; 24
+ 204:	01 e0       	ldi	r16, 0x01	; 1
+ 206:	10 e0       	ldi	r17, 0x00	; 0
+ 208:	02 c0       	rjmp	.+4      	; 0x20e <__DATA_REGION_LENGTH__+0xe>
+ 20a:	00 0f       	add	r16, r16
+ 20c:	11 1f       	adc	r17, r17
+ 20e:	4a 95       	dec	r20
+ 210:	e2 f7       	brpl	.-8      	; 0x20a <__DATA_REGION_LENGTH__+0xa>
+ 212:	90 2f       	mov	r25, r16
+ 214:	90 95       	com	r25
+ 216:	89 23       	and	r24, r25
+ 218:	88 bb       	out	0x18, r24	; 24
+	for (int reg_index = 0; reg_index < 4; reg_index++)
+ 21a:	c0 e0       	ldi	r28, 0x00	; 0
+ 21c:	d0 e0       	ldi	r29, 0x00	; 0
+ 21e:	0c c0       	rjmp	.+24     	; 0x238 <__DATA_REGION_LENGTH__+0x38>
+	{
+		shiftOut(dataPin, clockPin, MSBFIRST, * (reg_index_0 + reg_index));
+ 220:	fe 01       	movw	r30, r28
+ 222:	ee 0f       	add	r30, r30
+ 224:	ff 1f       	adc	r31, r31
+ 226:	ee 0d       	add	r30, r14
+ 228:	ff 1d       	adc	r31, r15
+ 22a:	20 81       	ld	r18, Z
+ 22c:	31 81       	ldd	r19, Z+1	; 0x01
+ 22e:	41 e0       	ldi	r20, 0x01	; 1
+ 230:	6d 2d       	mov	r22, r13
+ 232:	8c 2d       	mov	r24, r12
+ 234:	19 df       	rcall	.-462    	; 0x68 <shiftOut>
+}
+
+void writeRegVals(uint8_t dataPin, uint8_t clockPin, uint8_t latchPin, int * reg_index_0)
+{
+	digitalWrite(latchPin, LOW); // shiftOut data
+	for (int reg_index = 0; reg_index < 4; reg_index++)
+ 236:	21 96       	adiw	r28, 0x01	; 1
+ 238:	c4 30       	cpi	r28, 0x04	; 4
+ 23a:	d1 05       	cpc	r29, r1
+ 23c:	8c f3       	brlt	.-30     	; 0x220 <__DATA_REGION_LENGTH__+0x20>
+ 23e:	85 e3       	ldi	r24, 0x35	; 53
+ 240:	8a 95       	dec	r24
+ 242:	f1 f7       	brne	.-4      	; 0x240 <__DATA_REGION_LENGTH__+0x40>
+ 244:	00 00       	nop
+	{
+		shiftOut(dataPin, clockPin, MSBFIRST, * (reg_index_0 + reg_index));
+	}
+	_delay_us(shiftOutDelay);
+	digitalWrite(latchPin, HIGH);
+ 246:	88 b3       	in	r24, 0x18	; 24
+ 248:	08 2b       	or	r16, r24
+ 24a:	08 bb       	out	0x18, r16	; 24
+}
+ 24c:	df 91       	pop	r29
+ 24e:	cf 91       	pop	r28
+ 250:	1f 91       	pop	r17
+ 252:	0f 91       	pop	r16
+ 254:	ff 90       	pop	r15
+ 256:	ef 90       	pop	r14
+ 258:	df 90       	pop	r13
+ 25a:	cf 90       	pop	r12
+ 25c:	08 95       	ret
+
+0000025e <timer_setup>:
+
+
+
+void timer_setup()  //handling timer for millis function
+{
+	TCCR0A |= (1 << WGM01);
+ 25e:	8a b5       	in	r24, 0x2a	; 42
+ 260:	82 60       	ori	r24, 0x02	; 2
+ 262:	8a bd       	out	0x2a, r24	; 42
+	TCCR0B |= (1 << CS01);
+ 264:	83 b7       	in	r24, 0x33	; 51
+ 266:	82 60       	ori	r24, 0x02	; 2
+ 268:	83 bf       	out	0x33, r24	; 51
+	TCCR0B &= ~(1 << CS02);
+ 26a:	83 b7       	in	r24, 0x33	; 51
+ 26c:	8b 7f       	andi	r24, 0xFB	; 251
+ 26e:	83 bf       	out	0x33, r24	; 51
+	TCCR0B |= (1 << CS00);
+ 270:	83 b7       	in	r24, 0x33	; 51
+ 272:	81 60       	ori	r24, 0x01	; 1
+ 274:	83 bf       	out	0x33, r24	; 51
+	TCNT0 = 0;
+ 276:	12 be       	out	0x32, r1	; 50
+	OCR0A = 125;
+ 278:	8d e7       	ldi	r24, 0x7D	; 125
+ 27a:	89 bd       	out	0x29, r24	; 41
+	TIMSK = (1 << OCIE0A);
+ 27c:	80 e1       	ldi	r24, 0x10	; 16
+ 27e:	89 bf       	out	0x39, r24	; 57
+	sei();
+ 280:	78 94       	sei
+ 282:	08 95       	ret
+
+00000284 <main>:
+	
+}
+
+int main(void)
+{
+ 284:	cf 93       	push	r28
+ 286:	df 93       	push	r29
+ 288:	cd b7       	in	r28, 0x3d	; 61
+ 28a:	de b7       	in	r29, 0x3e	; 62
+ 28c:	60 97       	sbiw	r28, 0x10	; 16
+ 28e:	0f b6       	in	r0, 0x3f	; 63
+ 290:	f8 94       	cli
+ 292:	de bf       	out	0x3e, r29	; 62
+ 294:	0f be       	out	0x3f, r0	; 63
+ 296:	cd bf       	out	0x3d, r28	; 61
+	uint8_t dataPin = 0; //define pins for serial communication with shift regs
+	uint8_t clockPin = 1;
+	uint8_t latchPin = 2;
+	pinMode(0, OUTPUT);
+ 298:	87 b3       	in	r24, 0x17	; 23
+ 29a:	81 60       	ori	r24, 0x01	; 1
+ 29c:	87 bb       	out	0x17, r24	; 23
+	pinMode(1, OUTPUT);
+ 29e:	87 b3       	in	r24, 0x17	; 23
+ 2a0:	82 60       	ori	r24, 0x02	; 2
+ 2a2:	87 bb       	out	0x17, r24	; 23
+	pinMode(2, OUTPUT);
+ 2a4:	87 b3       	in	r24, 0x17	; 23
+ 2a6:	84 60       	ori	r24, 0x04	; 4
+ 2a8:	87 bb       	out	0x17, r24	; 23
+
+	timer_setup(); // initialize timer
+ 2aa:	d9 df       	rcall	.-78     	; 0x25e <timer_setup>
+	
+    while (1) //main loop
+    {
+		
+		//First pattern
+		unsigned long pattern_start_time = millis();
+ 2ac:	d4 de       	rcall	.-600    	; 0x56 <millis>
+ 2ae:	4b 01       	movw	r8, r22
+ 2b0:	5c 01       	movw	r10, r24
+		unsigned long pattern_time = millis();
+		while (pattern_time - pattern_start_time < 60000)
+ 2b2:	8b c0       	rjmp	.+278    	; 0x3ca <main+0x146>
+		{
+			for(int i = 0; i < 12; i++) // loop for iterating through all 12 patterns in column 0
+			{
+				t1 = millis();
+ 2b4:	d0 de       	rcall	.-608    	; 0x56 <millis>
+ 2b6:	60 93 66 00 	sts	0x0066, r22	; 0x800066 <t1>
+ 2ba:	70 93 67 00 	sts	0x0067, r23	; 0x800067 <t1+0x1>
+ 2be:	80 93 68 00 	sts	0x0068, r24	; 0x800068 <t1+0x2>
+ 2c2:	90 93 69 00 	sts	0x0069, r25	; 0x800069 <t1+0x3>
+				t2 = millis();
+ 2c6:	c7 de       	rcall	.-626    	; 0x56 <millis>
+ 2c8:	60 93 62 00 	sts	0x0062, r22	; 0x800062 <__data_end>
+ 2cc:	70 93 63 00 	sts	0x0063, r23	; 0x800063 <__data_end+0x1>
+ 2d0:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <__data_end+0x2>
+ 2d4:	90 93 65 00 	sts	0x0065, r25	; 0x800065 <__data_end+0x3>
+				while (t2 - t1 < t) // display one frame for t milliseconds
+ 2d8:	4e c0       	rjmp	.+156    	; 0x376 <main+0xf2>
+				{
+							
+					int val = i; //first column pattern index
+					for (int column = 0; column < 18; column++) //iterate through all the columns and turn on relevant LEDs for one frame
+					{
+						int reg_vals[4] = {0,0,0,0}; //initial register values
+ 2da:	fe 01       	movw	r30, r28
+ 2dc:	31 96       	adiw	r30, 0x01	; 1
+ 2de:	88 e0       	ldi	r24, 0x08	; 8
+ 2e0:	df 01       	movw	r26, r30
+ 2e2:	1d 92       	st	X+, r1
+ 2e4:	8a 95       	dec	r24
+ 2e6:	e9 f7       	brne	.-6      	; 0x2e2 <main+0x5e>
+								
+						if (val == 1)
+ 2e8:	01 30       	cpi	r16, 0x01	; 1
+ 2ea:	11 05       	cpc	r17, r1
+ 2ec:	31 f4       	brne	.+12     	; 0x2fa <main+0x76>
+						{
+							turnOnLED(& reg_vals, column, 0);
+ 2ee:	40 e0       	ldi	r20, 0x00	; 0
+ 2f0:	50 e0       	ldi	r21, 0x00	; 0
+ 2f2:	b7 01       	movw	r22, r14
+ 2f4:	cf 01       	movw	r24, r30
+ 2f6:	1b df       	rcall	.-458    	; 0x12e <turnOnLED>
+ 2f8:	1b c0       	rjmp	.+54     	; 0x330 <main+0xac>
+						}
+						else if (val < 11)
+ 2fa:	0b 30       	cpi	r16, 0x0B	; 11
+ 2fc:	11 05       	cpc	r17, r1
+ 2fe:	7c f4       	brge	.+30     	; 0x31e <main+0x9a>
+						{
+							turnOnLED(& reg_vals, column, val - 2);
+ 300:	a8 01       	movw	r20, r16
+ 302:	42 50       	subi	r20, 0x02	; 2
+ 304:	51 09       	sbc	r21, r1
+ 306:	b7 01       	movw	r22, r14
+ 308:	ce 01       	movw	r24, r28
+ 30a:	01 96       	adiw	r24, 0x01	; 1
+ 30c:	10 df       	rcall	.-480    	; 0x12e <turnOnLED>
+							turnOnLED(& reg_vals, column, val - 1);
+ 30e:	a8 01       	movw	r20, r16
+ 310:	41 50       	subi	r20, 0x01	; 1
+ 312:	51 09       	sbc	r21, r1
+ 314:	b7 01       	movw	r22, r14
+ 316:	ce 01       	movw	r24, r28
+ 318:	01 96       	adiw	r24, 0x01	; 1
+ 31a:	09 df       	rcall	.-494    	; 0x12e <turnOnLED>
+ 31c:	09 c0       	rjmp	.+18     	; 0x330 <main+0xac>
+						}
+						else if (val == 11)
+ 31e:	0b 30       	cpi	r16, 0x0B	; 11
+ 320:	11 05       	cpc	r17, r1
+ 322:	31 f4       	brne	.+12     	; 0x330 <main+0xac>
+						{
+							turnOnLED(& reg_vals, column, 9);
+ 324:	49 e0       	ldi	r20, 0x09	; 9
+ 326:	50 e0       	ldi	r21, 0x00	; 0
+ 328:	b7 01       	movw	r22, r14
+ 32a:	ce 01       	movw	r24, r28
+ 32c:	01 96       	adiw	r24, 0x01	; 1
+ 32e:	ff de       	rcall	.-514    	; 0x12e <turnOnLED>
+						}
+								
+						writeRegVals(dataPin, clockPin, latchPin, & reg_vals);
+ 330:	9e 01       	movw	r18, r28
+ 332:	2f 5f       	subi	r18, 0xFF	; 255
+ 334:	3f 4f       	sbci	r19, 0xFF	; 255
+ 336:	42 e0       	ldi	r20, 0x02	; 2
+ 338:	61 e0       	ldi	r22, 0x01	; 1
+ 33a:	80 e0       	ldi	r24, 0x00	; 0
+ 33c:	57 df       	rcall	.-338    	; 0x1ec <writeRegVals>
+								
+						val++; //increment pattern index for the first column
+ 33e:	0f 5f       	subi	r16, 0xFF	; 255
+ 340:	1f 4f       	sbci	r17, 0xFF	; 255
+						if (val > 11)
+ 342:	0c 30       	cpi	r16, 0x0C	; 12
+ 344:	11 05       	cpc	r17, r1
+ 346:	14 f0       	brlt	.+4      	; 0x34c <main+0xc8>
+						{
+							val = 0; // reset pattern index for first column
+ 348:	00 e0       	ldi	r16, 0x00	; 0
+ 34a:	10 e0       	ldi	r17, 0x00	; 0
+				t2 = millis();
+				while (t2 - t1 < t) // display one frame for t milliseconds
+				{
+							
+					int val = i; //first column pattern index
+					for (int column = 0; column < 18; column++) //iterate through all the columns and turn on relevant LEDs for one frame
+ 34c:	bf ef       	ldi	r27, 0xFF	; 255
+ 34e:	eb 1a       	sub	r14, r27
+ 350:	fb 0a       	sbc	r15, r27
+ 352:	03 c0       	rjmp	.+6      	; 0x35a <main+0xd6>
+ 354:	86 01       	movw	r16, r12
+ 356:	e1 2c       	mov	r14, r1
+ 358:	f1 2c       	mov	r15, r1
+ 35a:	e2 e1       	ldi	r30, 0x12	; 18
+ 35c:	ee 16       	cp	r14, r30
+ 35e:	f1 04       	cpc	r15, r1
+ 360:	0c f4       	brge	.+2      	; 0x364 <main+0xe0>
+ 362:	bb cf       	rjmp	.-138    	; 0x2da <main+0x56>
+						{
+							val = 0; // reset pattern index for first column
+						}
+					}
+							
+					t2 = millis();
+ 364:	78 de       	rcall	.-784    	; 0x56 <millis>
+ 366:	60 93 62 00 	sts	0x0062, r22	; 0x800062 <__data_end>
+ 36a:	70 93 63 00 	sts	0x0063, r23	; 0x800063 <__data_end+0x1>
+ 36e:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <__data_end+0x2>
+ 372:	90 93 65 00 	sts	0x0065, r25	; 0x800065 <__data_end+0x3>
+		{
+			for(int i = 0; i < 12; i++) // loop for iterating through all 12 patterns in column 0
+			{
+				t1 = millis();
+				t2 = millis();
+				while (t2 - t1 < t) // display one frame for t milliseconds
+ 376:	40 91 62 00 	lds	r20, 0x0062	; 0x800062 <__data_end>
+ 37a:	50 91 63 00 	lds	r21, 0x0063	; 0x800063 <__data_end+0x1>
+ 37e:	60 91 64 00 	lds	r22, 0x0064	; 0x800064 <__data_end+0x2>
+ 382:	70 91 65 00 	lds	r23, 0x0065	; 0x800065 <__data_end+0x3>
+ 386:	80 91 66 00 	lds	r24, 0x0066	; 0x800066 <t1>
+ 38a:	90 91 67 00 	lds	r25, 0x0067	; 0x800067 <t1+0x1>
+ 38e:	a0 91 68 00 	lds	r26, 0x0068	; 0x800068 <t1+0x2>
+ 392:	b0 91 69 00 	lds	r27, 0x0069	; 0x800069 <t1+0x3>
+ 396:	48 1b       	sub	r20, r24
+ 398:	59 0b       	sbc	r21, r25
+ 39a:	6a 0b       	sbc	r22, r26
+ 39c:	7b 0b       	sbc	r23, r27
+ 39e:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 3a2:	90 e0       	ldi	r25, 0x00	; 0
+ 3a4:	a0 e0       	ldi	r26, 0x00	; 0
+ 3a6:	b0 e0       	ldi	r27, 0x00	; 0
+ 3a8:	48 17       	cp	r20, r24
+ 3aa:	59 07       	cpc	r21, r25
+ 3ac:	6a 07       	cpc	r22, r26
+ 3ae:	7b 07       	cpc	r23, r27
+ 3b0:	88 f2       	brcs	.-94     	; 0x354 <main+0xd0>
+		//First pattern
+		unsigned long pattern_start_time = millis();
+		unsigned long pattern_time = millis();
+		while (pattern_time - pattern_start_time < 60000)
+		{
+			for(int i = 0; i < 12; i++) // loop for iterating through all 12 patterns in column 0
+ 3b2:	ff ef       	ldi	r31, 0xFF	; 255
+ 3b4:	cf 1a       	sub	r12, r31
+ 3b6:	df 0a       	sbc	r13, r31
+ 3b8:	02 c0       	rjmp	.+4      	; 0x3be <main+0x13a>
+ 3ba:	c1 2c       	mov	r12, r1
+ 3bc:	d1 2c       	mov	r13, r1
+ 3be:	2c e0       	ldi	r18, 0x0C	; 12
+ 3c0:	c2 16       	cp	r12, r18
+ 3c2:	d1 04       	cpc	r13, r1
+ 3c4:	0c f4       	brge	.+2      	; 0x3c8 <main+0x144>
+ 3c6:	76 cf       	rjmp	.-276    	; 0x2b4 <main+0x30>
+							
+				}
+						
+			}
+					
+			pattern_time = millis();
+ 3c8:	46 de       	rcall	.-884    	; 0x56 <millis>
+    {
+		
+		//First pattern
+		unsigned long pattern_start_time = millis();
+		unsigned long pattern_time = millis();
+		while (pattern_time - pattern_start_time < 60000)
+ 3ca:	dc 01       	movw	r26, r24
+ 3cc:	cb 01       	movw	r24, r22
+ 3ce:	88 19       	sub	r24, r8
+ 3d0:	99 09       	sbc	r25, r9
+ 3d2:	aa 09       	sbc	r26, r10
+ 3d4:	bb 09       	sbc	r27, r11
+ 3d6:	80 36       	cpi	r24, 0x60	; 96
+ 3d8:	9a 4e       	sbci	r25, 0xEA	; 234
+ 3da:	a1 05       	cpc	r26, r1
+ 3dc:	b1 05       	cpc	r27, r1
+ 3de:	68 f3       	brcs	.-38     	; 0x3ba <main+0x136>
+		}
+
+		
+		//Second pattern
+		
+		t= 150;
+ 3e0:	86 e9       	ldi	r24, 0x96	; 150
+ 3e2:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+		
+		pattern_start_time = millis();
+ 3e6:	37 de       	rcall	.-914    	; 0x56 <millis>
+ 3e8:	4b 01       	movw	r8, r22
+ 3ea:	5c 01       	movw	r10, r24
+		pattern_time = millis();
+		while (pattern_time - pattern_start_time < 60000)
+ 3ec:	7c c0       	rjmp	.+248    	; 0x4e6 <__LOCK_REGION_LENGTH__+0xe6>
+		{
+			for(int i = 0; i < 11; i++) // loop for iterating through all 12 patterns in column 0
+			{
+				t1 = millis();
+ 3ee:	33 de       	rcall	.-922    	; 0x56 <millis>
+ 3f0:	60 93 66 00 	sts	0x0066, r22	; 0x800066 <t1>
+ 3f4:	70 93 67 00 	sts	0x0067, r23	; 0x800067 <t1+0x1>
+ 3f8:	80 93 68 00 	sts	0x0068, r24	; 0x800068 <t1+0x2>
+ 3fc:	90 93 69 00 	sts	0x0069, r25	; 0x800069 <t1+0x3>
+				t2 = millis();
+ 400:	2a de       	rcall	.-940    	; 0x56 <millis>
+ 402:	60 93 62 00 	sts	0x0062, r22	; 0x800062 <__data_end>
+ 406:	70 93 63 00 	sts	0x0063, r23	; 0x800063 <__data_end+0x1>
+ 40a:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <__data_end+0x2>
+ 40e:	90 93 65 00 	sts	0x0065, r25	; 0x800065 <__data_end+0x3>
+				while (t2 - t1 < t) // display one frame for t milliseconds
+ 412:	3f c0       	rjmp	.+126    	; 0x492 <__LOCK_REGION_LENGTH__+0x92>
+				{
+					for (int column = 0; column < 18; column++) //iterate through all the columns and turn on relevant LEDs for one frame
+					{
+						int reg_vals[4] = {0,0,0,0}; //initial register values
+ 414:	fe 01       	movw	r30, r28
+ 416:	31 96       	adiw	r30, 0x01	; 1
+ 418:	88 e0       	ldi	r24, 0x08	; 8
+ 41a:	df 01       	movw	r26, r30
+ 41c:	1d 92       	st	X+, r1
+ 41e:	8a 95       	dec	r24
+ 420:	e9 f7       	brne	.-6      	; 0x41c <__LOCK_REGION_LENGTH__+0x1c>
+						
+						if (i == 0)
+ 422:	e1 14       	cp	r14, r1
+ 424:	f1 04       	cpc	r15, r1
+ 426:	31 f4       	brne	.+12     	; 0x434 <__LOCK_REGION_LENGTH__+0x34>
+						{
+							turnOnLED(& reg_vals, column, 0);
+ 428:	40 e0       	ldi	r20, 0x00	; 0
+ 42a:	50 e0       	ldi	r21, 0x00	; 0
+ 42c:	b8 01       	movw	r22, r16
+ 42e:	cf 01       	movw	r24, r30
+ 430:	7e de       	rcall	.-772    	; 0x12e <turnOnLED>
+ 432:	17 c0       	rjmp	.+46     	; 0x462 <__LOCK_REGION_LENGTH__+0x62>
+						}
+						else if (i < 10)
+ 434:	ba e0       	ldi	r27, 0x0A	; 10
+ 436:	eb 16       	cp	r14, r27
+ 438:	f1 04       	cpc	r15, r1
+ 43a:	6c f4       	brge	.+26     	; 0x456 <__LOCK_REGION_LENGTH__+0x56>
+						{
+							turnOnLED(& reg_vals, column, i - 1);
+ 43c:	a7 01       	movw	r20, r14
+ 43e:	41 50       	subi	r20, 0x01	; 1
+ 440:	51 09       	sbc	r21, r1
+ 442:	b8 01       	movw	r22, r16
+ 444:	ce 01       	movw	r24, r28
+ 446:	01 96       	adiw	r24, 0x01	; 1
+ 448:	72 de       	rcall	.-796    	; 0x12e <turnOnLED>
+							turnOnLED(& reg_vals, column, i);
+ 44a:	a7 01       	movw	r20, r14
+ 44c:	b8 01       	movw	r22, r16
+ 44e:	ce 01       	movw	r24, r28
+ 450:	01 96       	adiw	r24, 0x01	; 1
+ 452:	6d de       	rcall	.-806    	; 0x12e <turnOnLED>
+ 454:	06 c0       	rjmp	.+12     	; 0x462 <__LOCK_REGION_LENGTH__+0x62>
+						}
+						else
+						{
+							turnOnLED(& reg_vals, column, 9);
+ 456:	49 e0       	ldi	r20, 0x09	; 9
+ 458:	50 e0       	ldi	r21, 0x00	; 0
+ 45a:	b8 01       	movw	r22, r16
+ 45c:	ce 01       	movw	r24, r28
+ 45e:	01 96       	adiw	r24, 0x01	; 1
+ 460:	66 de       	rcall	.-820    	; 0x12e <turnOnLED>
+						}
+						
+						writeRegVals(dataPin, clockPin, latchPin, & reg_vals);
+ 462:	9e 01       	movw	r18, r28
+ 464:	2f 5f       	subi	r18, 0xFF	; 255
+ 466:	3f 4f       	sbci	r19, 0xFF	; 255
+ 468:	42 e0       	ldi	r20, 0x02	; 2
+ 46a:	61 e0       	ldi	r22, 0x01	; 1
+ 46c:	80 e0       	ldi	r24, 0x00	; 0
+ 46e:	be de       	rcall	.-644    	; 0x1ec <writeRegVals>
+			{
+				t1 = millis();
+				t2 = millis();
+				while (t2 - t1 < t) // display one frame for t milliseconds
+				{
+					for (int column = 0; column < 18; column++) //iterate through all the columns and turn on relevant LEDs for one frame
+ 470:	0f 5f       	subi	r16, 0xFF	; 255
+ 472:	1f 4f       	sbci	r17, 0xFF	; 255
+ 474:	02 c0       	rjmp	.+4      	; 0x47a <__LOCK_REGION_LENGTH__+0x7a>
+ 476:	00 e0       	ldi	r16, 0x00	; 0
+ 478:	10 e0       	ldi	r17, 0x00	; 0
+ 47a:	02 31       	cpi	r16, 0x12	; 18
+ 47c:	11 05       	cpc	r17, r1
+ 47e:	54 f2       	brlt	.-108    	; 0x414 <__LOCK_REGION_LENGTH__+0x14>
+						
+						writeRegVals(dataPin, clockPin, latchPin, & reg_vals);
+						
+					}
+					
+					t2 = millis();
+ 480:	ea dd       	rcall	.-1068   	; 0x56 <millis>
+ 482:	60 93 62 00 	sts	0x0062, r22	; 0x800062 <__data_end>
+ 486:	70 93 63 00 	sts	0x0063, r23	; 0x800063 <__data_end+0x1>
+ 48a:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <__data_end+0x2>
+ 48e:	90 93 65 00 	sts	0x0065, r25	; 0x800065 <__data_end+0x3>
+		{
+			for(int i = 0; i < 11; i++) // loop for iterating through all 12 patterns in column 0
+			{
+				t1 = millis();
+				t2 = millis();
+				while (t2 - t1 < t) // display one frame for t milliseconds
+ 492:	40 91 62 00 	lds	r20, 0x0062	; 0x800062 <__data_end>
+ 496:	50 91 63 00 	lds	r21, 0x0063	; 0x800063 <__data_end+0x1>
+ 49a:	60 91 64 00 	lds	r22, 0x0064	; 0x800064 <__data_end+0x2>
+ 49e:	70 91 65 00 	lds	r23, 0x0065	; 0x800065 <__data_end+0x3>
+ 4a2:	80 91 66 00 	lds	r24, 0x0066	; 0x800066 <t1>
+ 4a6:	90 91 67 00 	lds	r25, 0x0067	; 0x800067 <t1+0x1>
+ 4aa:	a0 91 68 00 	lds	r26, 0x0068	; 0x800068 <t1+0x2>
+ 4ae:	b0 91 69 00 	lds	r27, 0x0069	; 0x800069 <t1+0x3>
+ 4b2:	48 1b       	sub	r20, r24
+ 4b4:	59 0b       	sbc	r21, r25
+ 4b6:	6a 0b       	sbc	r22, r26
+ 4b8:	7b 0b       	sbc	r23, r27
+ 4ba:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 4be:	90 e0       	ldi	r25, 0x00	; 0
+ 4c0:	a0 e0       	ldi	r26, 0x00	; 0
+ 4c2:	b0 e0       	ldi	r27, 0x00	; 0
+ 4c4:	48 17       	cp	r20, r24
+ 4c6:	59 07       	cpc	r21, r25
+ 4c8:	6a 07       	cpc	r22, r26
+ 4ca:	7b 07       	cpc	r23, r27
+ 4cc:	a0 f2       	brcs	.-88     	; 0x476 <__LOCK_REGION_LENGTH__+0x76>
+		
+		pattern_start_time = millis();
+		pattern_time = millis();
+		while (pattern_time - pattern_start_time < 60000)
+		{
+			for(int i = 0; i < 11; i++) // loop for iterating through all 12 patterns in column 0
+ 4ce:	ef ef       	ldi	r30, 0xFF	; 255
+ 4d0:	ee 1a       	sub	r14, r30
+ 4d2:	fe 0a       	sbc	r15, r30
+ 4d4:	02 c0       	rjmp	.+4      	; 0x4da <__LOCK_REGION_LENGTH__+0xda>
+ 4d6:	e1 2c       	mov	r14, r1
+ 4d8:	f1 2c       	mov	r15, r1
+ 4da:	fb e0       	ldi	r31, 0x0B	; 11
+ 4dc:	ef 16       	cp	r14, r31
+ 4de:	f1 04       	cpc	r15, r1
+ 4e0:	0c f4       	brge	.+2      	; 0x4e4 <__LOCK_REGION_LENGTH__+0xe4>
+ 4e2:	85 cf       	rjmp	.-246    	; 0x3ee <main+0x16a>
+					
+				}
+				
+			}
+			
+			pattern_time = millis();
+ 4e4:	b8 dd       	rcall	.-1168   	; 0x56 <millis>
+		
+		t= 150;
+		
+		pattern_start_time = millis();
+		pattern_time = millis();
+		while (pattern_time - pattern_start_time < 60000)
+ 4e6:	dc 01       	movw	r26, r24
+ 4e8:	cb 01       	movw	r24, r22
+ 4ea:	88 19       	sub	r24, r8
+ 4ec:	99 09       	sbc	r25, r9
+ 4ee:	aa 09       	sbc	r26, r10
+ 4f0:	bb 09       	sbc	r27, r11
+ 4f2:	80 36       	cpi	r24, 0x60	; 96
+ 4f4:	9a 4e       	sbci	r25, 0xEA	; 234
+ 4f6:	a1 05       	cpc	r26, r1
+ 4f8:	b1 05       	cpc	r27, r1
+ 4fa:	68 f3       	brcs	.-38     	; 0x4d6 <__LOCK_REGION_LENGTH__+0xd6>
+			
+		}
+		
+		//Third pattern
+				
+		t= 150;
+ 4fc:	86 e9       	ldi	r24, 0x96	; 150
+ 4fe:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+				
+		pattern_start_time = millis();
+ 502:	a9 dd       	rcall	.-1198   	; 0x56 <millis>
+ 504:	4b 01       	movw	r8, r22
+ 506:	5c 01       	movw	r10, r24
+		pattern_time = millis();
+		while (pattern_time - pattern_start_time < 60000)
+ 508:	07 c1       	rjmp	.+526    	; 0x718 <__LOCK_REGION_LENGTH__+0x318>
+		{
+			for(int i = 0; i < 15; i++) // loop for iterating through all 12 patterns in column 0
+			{
+				t1 = millis();
+ 50a:	a5 dd       	rcall	.-1206   	; 0x56 <millis>
+ 50c:	60 93 66 00 	sts	0x0066, r22	; 0x800066 <t1>
+ 510:	70 93 67 00 	sts	0x0067, r23	; 0x800067 <t1+0x1>
+ 514:	80 93 68 00 	sts	0x0068, r24	; 0x800068 <t1+0x2>
+ 518:	90 93 69 00 	sts	0x0069, r25	; 0x800069 <t1+0x3>
+				t2 = millis();
+ 51c:	9c dd       	rcall	.-1224   	; 0x56 <millis>
+ 51e:	60 93 62 00 	sts	0x0062, r22	; 0x800062 <__data_end>
+ 522:	70 93 63 00 	sts	0x0063, r23	; 0x800063 <__data_end+0x1>
+ 526:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <__data_end+0x2>
+ 52a:	90 93 65 00 	sts	0x0065, r25	; 0x800065 <__data_end+0x3>
+				while (t2 - t1 < t) // display one frame for t milliseconds
+ 52e:	ca c0       	rjmp	.+404    	; 0x6c4 <__LOCK_REGION_LENGTH__+0x2c4>
+				{
+					for (int column = 0; column < 18; column++) //iterate through all the columns and turn on relevant LEDs for one frame
+					{
+						int reg_vals[4] = {0,0,0,0}; //initial register values
+ 530:	fe 01       	movw	r30, r28
+ 532:	31 96       	adiw	r30, 0x01	; 1
+ 534:	88 e0       	ldi	r24, 0x08	; 8
+ 536:	df 01       	movw	r26, r30
+ 538:	1d 92       	st	X+, r1
+ 53a:	8a 95       	dec	r24
+ 53c:	e9 f7       	brne	.-6      	; 0x538 <__LOCK_REGION_LENGTH__+0x138>
+								
+						if ((column % 2) && (i > 2))
+ 53e:	c8 01       	movw	r24, r16
+ 540:	81 70       	andi	r24, 0x01	; 1
+ 542:	99 27       	eor	r25, r25
+ 544:	00 ff       	sbrs	r16, 0
+ 546:	53 c0       	rjmp	.+166    	; 0x5ee <__LOCK_REGION_LENGTH__+0x1ee>
+ 548:	b3 e0       	ldi	r27, 0x03	; 3
+ 54a:	eb 16       	cp	r14, r27
+ 54c:	f1 04       	cpc	r15, r1
+ 54e:	0c f4       	brge	.+2      	; 0x552 <__LOCK_REGION_LENGTH__+0x152>
+ 550:	4e c0       	rjmp	.+156    	; 0x5ee <__LOCK_REGION_LENGTH__+0x1ee>
+						{
+							if (i == 3)
+ 552:	e3 e0       	ldi	r30, 0x03	; 3
+ 554:	ee 16       	cp	r14, r30
+ 556:	f1 04       	cpc	r15, r1
+ 558:	39 f4       	brne	.+14     	; 0x568 <__LOCK_REGION_LENGTH__+0x168>
+							{
+								turnOnLED(& reg_vals, column, 0);
+ 55a:	40 e0       	ldi	r20, 0x00	; 0
+ 55c:	50 e0       	ldi	r21, 0x00	; 0
+ 55e:	b8 01       	movw	r22, r16
+ 560:	ce 01       	movw	r24, r28
+ 562:	01 96       	adiw	r24, 0x01	; 1
+ 564:	e4 dd       	rcall	.-1080   	; 0x12e <turnOnLED>
+ 566:	95 c0       	rjmp	.+298    	; 0x692 <__LOCK_REGION_LENGTH__+0x292>
+							}
+							else if (i == 4)
+ 568:	f4 e0       	ldi	r31, 0x04	; 4
+ 56a:	ef 16       	cp	r14, r31
+ 56c:	f1 04       	cpc	r15, r1
+ 56e:	69 f4       	brne	.+26     	; 0x58a <__LOCK_REGION_LENGTH__+0x18a>
+							{
+								turnOnLED(& reg_vals, column, 0);
+ 570:	40 e0       	ldi	r20, 0x00	; 0
+ 572:	50 e0       	ldi	r21, 0x00	; 0
+ 574:	b8 01       	movw	r22, r16
+ 576:	ce 01       	movw	r24, r28
+ 578:	01 96       	adiw	r24, 0x01	; 1
+ 57a:	d9 dd       	rcall	.-1102   	; 0x12e <turnOnLED>
+								turnOnLED(& reg_vals, column, 1);
+ 57c:	41 e0       	ldi	r20, 0x01	; 1
+ 57e:	50 e0       	ldi	r21, 0x00	; 0
+ 580:	b8 01       	movw	r22, r16
+ 582:	ce 01       	movw	r24, r28
+ 584:	01 96       	adiw	r24, 0x01	; 1
+ 586:	d3 dd       	rcall	.-1114   	; 0x12e <turnOnLED>
+ 588:	84 c0       	rjmp	.+264    	; 0x692 <__LOCK_REGION_LENGTH__+0x292>
+							}
+							else if (i < 13)
+ 58a:	2d e0       	ldi	r18, 0x0D	; 13
+ 58c:	e2 16       	cp	r14, r18
+ 58e:	f1 04       	cpc	r15, r1
+ 590:	b4 f4       	brge	.+44     	; 0x5be <__LOCK_REGION_LENGTH__+0x1be>
+							{
+								turnOnLED(& reg_vals, column, i - 5);
+ 592:	a7 01       	movw	r20, r14
+ 594:	45 50       	subi	r20, 0x05	; 5
+ 596:	51 09       	sbc	r21, r1
+ 598:	b8 01       	movw	r22, r16
+ 59a:	ce 01       	movw	r24, r28
+ 59c:	01 96       	adiw	r24, 0x01	; 1
+ 59e:	c7 dd       	rcall	.-1138   	; 0x12e <turnOnLED>
+								turnOnLED(& reg_vals, column, i - 4);
+ 5a0:	a7 01       	movw	r20, r14
+ 5a2:	44 50       	subi	r20, 0x04	; 4
+ 5a4:	51 09       	sbc	r21, r1
+ 5a6:	b8 01       	movw	r22, r16
+ 5a8:	ce 01       	movw	r24, r28
+ 5aa:	01 96       	adiw	r24, 0x01	; 1
+ 5ac:	c0 dd       	rcall	.-1152   	; 0x12e <turnOnLED>
+								turnOnLED(& reg_vals, column, i - 3);
+ 5ae:	a7 01       	movw	r20, r14
+ 5b0:	43 50       	subi	r20, 0x03	; 3
+ 5b2:	51 09       	sbc	r21, r1
+ 5b4:	b8 01       	movw	r22, r16
+ 5b6:	ce 01       	movw	r24, r28
+ 5b8:	01 96       	adiw	r24, 0x01	; 1
+ 5ba:	b9 dd       	rcall	.-1166   	; 0x12e <turnOnLED>
+ 5bc:	6a c0       	rjmp	.+212    	; 0x692 <__LOCK_REGION_LENGTH__+0x292>
+							}
+							else if (i == 13)
+ 5be:	8d e0       	ldi	r24, 0x0D	; 13
+ 5c0:	e8 16       	cp	r14, r24
+ 5c2:	f1 04       	cpc	r15, r1
+ 5c4:	69 f4       	brne	.+26     	; 0x5e0 <__LOCK_REGION_LENGTH__+0x1e0>
+							{
+								turnOnLED(& reg_vals, column, 8);
+ 5c6:	48 e0       	ldi	r20, 0x08	; 8
+ 5c8:	50 e0       	ldi	r21, 0x00	; 0
+ 5ca:	b8 01       	movw	r22, r16
+ 5cc:	ce 01       	movw	r24, r28
+ 5ce:	01 96       	adiw	r24, 0x01	; 1
+ 5d0:	ae dd       	rcall	.-1188   	; 0x12e <turnOnLED>
+								turnOnLED(& reg_vals, column, 9);
+ 5d2:	49 e0       	ldi	r20, 0x09	; 9
+ 5d4:	50 e0       	ldi	r21, 0x00	; 0
+ 5d6:	b8 01       	movw	r22, r16
+ 5d8:	ce 01       	movw	r24, r28
+ 5da:	01 96       	adiw	r24, 0x01	; 1
+ 5dc:	a8 dd       	rcall	.-1200   	; 0x12e <turnOnLED>
+ 5de:	59 c0       	rjmp	.+178    	; 0x692 <__LOCK_REGION_LENGTH__+0x292>
+							}
+							else
+							{
+								turnOnLED(& reg_vals, column, 9);
+ 5e0:	49 e0       	ldi	r20, 0x09	; 9
+ 5e2:	50 e0       	ldi	r21, 0x00	; 0
+ 5e4:	b8 01       	movw	r22, r16
+ 5e6:	ce 01       	movw	r24, r28
+ 5e8:	01 96       	adiw	r24, 0x01	; 1
+ 5ea:	a1 dd       	rcall	.-1214   	; 0x12e <turnOnLED>
+ 5ec:	52 c0       	rjmp	.+164    	; 0x692 <__LOCK_REGION_LENGTH__+0x292>
+							}
+						}
+						
+						else if(!(column % 2) && (i < 12))
+ 5ee:	89 2b       	or	r24, r25
+ 5f0:	09 f0       	breq	.+2      	; 0x5f4 <__LOCK_REGION_LENGTH__+0x1f4>
+ 5f2:	4f c0       	rjmp	.+158    	; 0x692 <__LOCK_REGION_LENGTH__+0x292>
+ 5f4:	ac e0       	ldi	r26, 0x0C	; 12
+ 5f6:	ea 16       	cp	r14, r26
+ 5f8:	f1 04       	cpc	r15, r1
+ 5fa:	0c f0       	brlt	.+2      	; 0x5fe <__LOCK_REGION_LENGTH__+0x1fe>
+ 5fc:	4a c0       	rjmp	.+148    	; 0x692 <__LOCK_REGION_LENGTH__+0x292>
+						{
+							if (i == 0)
+ 5fe:	e1 14       	cp	r14, r1
+ 600:	f1 04       	cpc	r15, r1
+ 602:	39 f4       	brne	.+14     	; 0x612 <__LOCK_REGION_LENGTH__+0x212>
+							{
+								turnOnLED(& reg_vals, column, 0);
+ 604:	40 e0       	ldi	r20, 0x00	; 0
+ 606:	50 e0       	ldi	r21, 0x00	; 0
+ 608:	b8 01       	movw	r22, r16
+ 60a:	ce 01       	movw	r24, r28
+ 60c:	01 96       	adiw	r24, 0x01	; 1
+ 60e:	8f dd       	rcall	.-1250   	; 0x12e <turnOnLED>
+ 610:	40 c0       	rjmp	.+128    	; 0x692 <__LOCK_REGION_LENGTH__+0x292>
+							}
+							else if (i == 1)
+ 612:	b1 e0       	ldi	r27, 0x01	; 1
+ 614:	eb 16       	cp	r14, r27
+ 616:	f1 04       	cpc	r15, r1
+ 618:	69 f4       	brne	.+26     	; 0x634 <__LOCK_REGION_LENGTH__+0x234>
+							{
+								turnOnLED(& reg_vals, column, 0);
+ 61a:	40 e0       	ldi	r20, 0x00	; 0
+ 61c:	50 e0       	ldi	r21, 0x00	; 0
+ 61e:	b8 01       	movw	r22, r16
+ 620:	ce 01       	movw	r24, r28
+ 622:	01 96       	adiw	r24, 0x01	; 1
+ 624:	84 dd       	rcall	.-1272   	; 0x12e <turnOnLED>
+								turnOnLED(& reg_vals, column, 1);
+ 626:	41 e0       	ldi	r20, 0x01	; 1
+ 628:	50 e0       	ldi	r21, 0x00	; 0
+ 62a:	b8 01       	movw	r22, r16
+ 62c:	ce 01       	movw	r24, r28
+ 62e:	01 96       	adiw	r24, 0x01	; 1
+ 630:	7e dd       	rcall	.-1284   	; 0x12e <turnOnLED>
+ 632:	2f c0       	rjmp	.+94     	; 0x692 <__LOCK_REGION_LENGTH__+0x292>
+							}
+							else if (i < 10)
+ 634:	ea e0       	ldi	r30, 0x0A	; 10
+ 636:	ee 16       	cp	r14, r30
+ 638:	f1 04       	cpc	r15, r1
+ 63a:	a4 f4       	brge	.+40     	; 0x664 <__LOCK_REGION_LENGTH__+0x264>
+							{
+								turnOnLED(& reg_vals, column, i - 2);
+ 63c:	a7 01       	movw	r20, r14
+ 63e:	42 50       	subi	r20, 0x02	; 2
+ 640:	51 09       	sbc	r21, r1
+ 642:	b8 01       	movw	r22, r16
+ 644:	ce 01       	movw	r24, r28
+ 646:	01 96       	adiw	r24, 0x01	; 1
+ 648:	72 dd       	rcall	.-1308   	; 0x12e <turnOnLED>
+								turnOnLED(& reg_vals, column, i - 1);
+ 64a:	a7 01       	movw	r20, r14
+ 64c:	41 50       	subi	r20, 0x01	; 1
+ 64e:	51 09       	sbc	r21, r1
+ 650:	b8 01       	movw	r22, r16
+ 652:	ce 01       	movw	r24, r28
+ 654:	01 96       	adiw	r24, 0x01	; 1
+ 656:	6b dd       	rcall	.-1322   	; 0x12e <turnOnLED>
+								turnOnLED(& reg_vals, column, i);
+ 658:	a7 01       	movw	r20, r14
+ 65a:	b8 01       	movw	r22, r16
+ 65c:	ce 01       	movw	r24, r28
+ 65e:	01 96       	adiw	r24, 0x01	; 1
+ 660:	66 dd       	rcall	.-1332   	; 0x12e <turnOnLED>
+ 662:	17 c0       	rjmp	.+46     	; 0x692 <__LOCK_REGION_LENGTH__+0x292>
+							}
+							else if (i == 10)
+ 664:	fa e0       	ldi	r31, 0x0A	; 10
+ 666:	ef 16       	cp	r14, r31
+ 668:	f1 04       	cpc	r15, r1
+ 66a:	69 f4       	brne	.+26     	; 0x686 <__LOCK_REGION_LENGTH__+0x286>
+							{
+								turnOnLED(& reg_vals, column, 8);
+ 66c:	48 e0       	ldi	r20, 0x08	; 8
+ 66e:	50 e0       	ldi	r21, 0x00	; 0
+ 670:	b8 01       	movw	r22, r16
+ 672:	ce 01       	movw	r24, r28
+ 674:	01 96       	adiw	r24, 0x01	; 1
+ 676:	5b dd       	rcall	.-1354   	; 0x12e <turnOnLED>
+								turnOnLED(& reg_vals, column, 9);
+ 678:	49 e0       	ldi	r20, 0x09	; 9
+ 67a:	50 e0       	ldi	r21, 0x00	; 0
+ 67c:	b8 01       	movw	r22, r16
+ 67e:	ce 01       	movw	r24, r28
+ 680:	01 96       	adiw	r24, 0x01	; 1
+ 682:	55 dd       	rcall	.-1366   	; 0x12e <turnOnLED>
+ 684:	06 c0       	rjmp	.+12     	; 0x692 <__LOCK_REGION_LENGTH__+0x292>
+							}
+							else
+							{
+								turnOnLED(& reg_vals, column, 9);
+ 686:	49 e0       	ldi	r20, 0x09	; 9
+ 688:	50 e0       	ldi	r21, 0x00	; 0
+ 68a:	b8 01       	movw	r22, r16
+ 68c:	ce 01       	movw	r24, r28
+ 68e:	01 96       	adiw	r24, 0x01	; 1
+ 690:	4e dd       	rcall	.-1380   	; 0x12e <turnOnLED>
+							}
+						}
+						
+						writeRegVals(dataPin, clockPin, latchPin, & reg_vals);
+ 692:	9e 01       	movw	r18, r28
+ 694:	2f 5f       	subi	r18, 0xFF	; 255
+ 696:	3f 4f       	sbci	r19, 0xFF	; 255
+ 698:	42 e0       	ldi	r20, 0x02	; 2
+ 69a:	61 e0       	ldi	r22, 0x01	; 1
+ 69c:	80 e0       	ldi	r24, 0x00	; 0
+ 69e:	a6 dd       	rcall	.-1204   	; 0x1ec <writeRegVals>
+			{
+				t1 = millis();
+				t2 = millis();
+				while (t2 - t1 < t) // display one frame for t milliseconds
+				{
+					for (int column = 0; column < 18; column++) //iterate through all the columns and turn on relevant LEDs for one frame
+ 6a0:	0f 5f       	subi	r16, 0xFF	; 255
+ 6a2:	1f 4f       	sbci	r17, 0xFF	; 255
+ 6a4:	02 c0       	rjmp	.+4      	; 0x6aa <__LOCK_REGION_LENGTH__+0x2aa>
+ 6a6:	00 e0       	ldi	r16, 0x00	; 0
+ 6a8:	10 e0       	ldi	r17, 0x00	; 0
+ 6aa:	02 31       	cpi	r16, 0x12	; 18
+ 6ac:	11 05       	cpc	r17, r1
+ 6ae:	0c f4       	brge	.+2      	; 0x6b2 <__LOCK_REGION_LENGTH__+0x2b2>
+ 6b0:	3f cf       	rjmp	.-386    	; 0x530 <__LOCK_REGION_LENGTH__+0x130>
+						
+						writeRegVals(dataPin, clockPin, latchPin, & reg_vals);
+								
+					}
+							
+					t2 = millis();
+ 6b2:	d1 dc       	rcall	.-1630   	; 0x56 <millis>
+ 6b4:	60 93 62 00 	sts	0x0062, r22	; 0x800062 <__data_end>
+ 6b8:	70 93 63 00 	sts	0x0063, r23	; 0x800063 <__data_end+0x1>
+ 6bc:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <__data_end+0x2>
+ 6c0:	90 93 65 00 	sts	0x0065, r25	; 0x800065 <__data_end+0x3>
+		{
+			for(int i = 0; i < 15; i++) // loop for iterating through all 12 patterns in column 0
+			{
+				t1 = millis();
+				t2 = millis();
+				while (t2 - t1 < t) // display one frame for t milliseconds
+ 6c4:	40 91 62 00 	lds	r20, 0x0062	; 0x800062 <__data_end>
+ 6c8:	50 91 63 00 	lds	r21, 0x0063	; 0x800063 <__data_end+0x1>
+ 6cc:	60 91 64 00 	lds	r22, 0x0064	; 0x800064 <__data_end+0x2>
+ 6d0:	70 91 65 00 	lds	r23, 0x0065	; 0x800065 <__data_end+0x3>
+ 6d4:	80 91 66 00 	lds	r24, 0x0066	; 0x800066 <t1>
+ 6d8:	90 91 67 00 	lds	r25, 0x0067	; 0x800067 <t1+0x1>
+ 6dc:	a0 91 68 00 	lds	r26, 0x0068	; 0x800068 <t1+0x2>
+ 6e0:	b0 91 69 00 	lds	r27, 0x0069	; 0x800069 <t1+0x3>
+ 6e4:	48 1b       	sub	r20, r24
+ 6e6:	59 0b       	sbc	r21, r25
+ 6e8:	6a 0b       	sbc	r22, r26
+ 6ea:	7b 0b       	sbc	r23, r27
+ 6ec:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 6f0:	90 e0       	ldi	r25, 0x00	; 0
+ 6f2:	a0 e0       	ldi	r26, 0x00	; 0
+ 6f4:	b0 e0       	ldi	r27, 0x00	; 0
+ 6f6:	48 17       	cp	r20, r24
+ 6f8:	59 07       	cpc	r21, r25
+ 6fa:	6a 07       	cpc	r22, r26
+ 6fc:	7b 07       	cpc	r23, r27
+ 6fe:	98 f2       	brcs	.-90     	; 0x6a6 <__LOCK_REGION_LENGTH__+0x2a6>
+				
+		pattern_start_time = millis();
+		pattern_time = millis();
+		while (pattern_time - pattern_start_time < 60000)
+		{
+			for(int i = 0; i < 15; i++) // loop for iterating through all 12 patterns in column 0
+ 700:	2f ef       	ldi	r18, 0xFF	; 255
+ 702:	e2 1a       	sub	r14, r18
+ 704:	f2 0a       	sbc	r15, r18
+ 706:	02 c0       	rjmp	.+4      	; 0x70c <__LOCK_REGION_LENGTH__+0x30c>
+ 708:	e1 2c       	mov	r14, r1
+ 70a:	f1 2c       	mov	r15, r1
+ 70c:	8f e0       	ldi	r24, 0x0F	; 15
+ 70e:	e8 16       	cp	r14, r24
+ 710:	f1 04       	cpc	r15, r1
+ 712:	0c f4       	brge	.+2      	; 0x716 <__LOCK_REGION_LENGTH__+0x316>
+ 714:	fa ce       	rjmp	.-524    	; 0x50a <__LOCK_REGION_LENGTH__+0x10a>
+							
+				}
+						
+			}
+					
+			pattern_time = millis();
+ 716:	9f dc       	rcall	.-1730   	; 0x56 <millis>
+				
+		t= 150;
+				
+		pattern_start_time = millis();
+		pattern_time = millis();
+		while (pattern_time - pattern_start_time < 60000)
+ 718:	dc 01       	movw	r26, r24
+ 71a:	cb 01       	movw	r24, r22
+ 71c:	88 19       	sub	r24, r8
+ 71e:	99 09       	sbc	r25, r9
+ 720:	aa 09       	sbc	r26, r10
+ 722:	bb 09       	sbc	r27, r11
+ 724:	80 36       	cpi	r24, 0x60	; 96
+ 726:	9a 4e       	sbci	r25, 0xEA	; 234
+ 728:	a1 05       	cpc	r26, r1
+ 72a:	b1 05       	cpc	r27, r1
+ 72c:	68 f3       	brcs	.-38     	; 0x708 <__LOCK_REGION_LENGTH__+0x308>
+		}
+		
+		
+		//4th pattern
+		
+		t = 150;
+ 72e:	86 e9       	ldi	r24, 0x96	; 150
+ 730:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+		
+		pattern_start_time = millis();
+ 734:	90 dc       	rcall	.-1760   	; 0x56 <millis>
+ 736:	2b 01       	movw	r4, r22
+ 738:	3c 01       	movw	r6, r24
+		pattern_time = millis();
+		while (pattern_time - pattern_start_time < 60000)
+ 73a:	c8 c0       	rjmp	.+400    	; 0x8cc <__LOCK_REGION_LENGTH__+0x4cc>
+		{
+			for(int i = 0; i < 12; i++) // loop for iterating through all 12 patterns in column 0
+			{
+				t1 = millis();
+ 73c:	8c dc       	rcall	.-1768   	; 0x56 <millis>
+ 73e:	60 93 66 00 	sts	0x0066, r22	; 0x800066 <t1>
+ 742:	70 93 67 00 	sts	0x0067, r23	; 0x800067 <t1+0x1>
+ 746:	80 93 68 00 	sts	0x0068, r24	; 0x800068 <t1+0x2>
+ 74a:	90 93 69 00 	sts	0x0069, r25	; 0x800069 <t1+0x3>
+				t2 = millis();
+ 74e:	83 dc       	rcall	.-1786   	; 0x56 <millis>
+ 750:	60 93 62 00 	sts	0x0062, r22	; 0x800062 <__data_end>
+ 754:	70 93 63 00 	sts	0x0063, r23	; 0x800063 <__data_end+0x1>
+ 758:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <__data_end+0x2>
+ 75c:	90 93 65 00 	sts	0x0065, r25	; 0x800065 <__data_end+0x3>
+				while (t2 - t1 < t) // display one frame for t milliseconds
+ 760:	8b c0       	rjmp	.+278    	; 0x878 <__LOCK_REGION_LENGTH__+0x478>
+				{
+					
+					int val = i; //first column pattern index
+					for (int column = 0; column < 18; column++) //iterate through all the columns and turn on relevant LEDs for one frame
+					{
+						int reg_vals[4] = {0,0,0,0}; //initial register values
+ 762:	fe 01       	movw	r30, r28
+ 764:	39 96       	adiw	r30, 0x09	; 9
+ 766:	88 e0       	ldi	r24, 0x08	; 8
+ 768:	df 01       	movw	r26, r30
+ 76a:	1d 92       	st	X+, r1
+ 76c:	8a 95       	dec	r24
+ 76e:	e9 f7       	brne	.-6      	; 0x76a <__LOCK_REGION_LENGTH__+0x36a>
+						
+						if (val == 1)
+ 770:	01 30       	cpi	r16, 0x01	; 1
+ 772:	11 05       	cpc	r17, r1
+ 774:	31 f4       	brne	.+12     	; 0x782 <__LOCK_REGION_LENGTH__+0x382>
+						{
+							turnOnLED(& reg_vals, column, 0);
+ 776:	40 e0       	ldi	r20, 0x00	; 0
+ 778:	50 e0       	ldi	r21, 0x00	; 0
+ 77a:	b7 01       	movw	r22, r14
+ 77c:	cf 01       	movw	r24, r30
+ 77e:	d7 dc       	rcall	.-1618   	; 0x12e <turnOnLED>
+ 780:	1b c0       	rjmp	.+54     	; 0x7b8 <__LOCK_REGION_LENGTH__+0x3b8>
+						}
+						else if (val < 11)
+ 782:	0b 30       	cpi	r16, 0x0B	; 11
+ 784:	11 05       	cpc	r17, r1
+ 786:	7c f4       	brge	.+30     	; 0x7a6 <__LOCK_REGION_LENGTH__+0x3a6>
+						{
+							turnOnLED(& reg_vals, column, val - 2);
+ 788:	a8 01       	movw	r20, r16
+ 78a:	42 50       	subi	r20, 0x02	; 2
+ 78c:	51 09       	sbc	r21, r1
+ 78e:	b7 01       	movw	r22, r14
+ 790:	ce 01       	movw	r24, r28
+ 792:	09 96       	adiw	r24, 0x09	; 9
+ 794:	cc dc       	rcall	.-1640   	; 0x12e <turnOnLED>
+							turnOnLED(& reg_vals, column, val - 1);
+ 796:	a8 01       	movw	r20, r16
+ 798:	41 50       	subi	r20, 0x01	; 1
+ 79a:	51 09       	sbc	r21, r1
+ 79c:	b7 01       	movw	r22, r14
+ 79e:	ce 01       	movw	r24, r28
+ 7a0:	09 96       	adiw	r24, 0x09	; 9
+ 7a2:	c5 dc       	rcall	.-1654   	; 0x12e <turnOnLED>
+ 7a4:	09 c0       	rjmp	.+18     	; 0x7b8 <__LOCK_REGION_LENGTH__+0x3b8>
+						}
+						else if (val == 11)
+ 7a6:	0b 30       	cpi	r16, 0x0B	; 11
+ 7a8:	11 05       	cpc	r17, r1
+ 7aa:	31 f4       	brne	.+12     	; 0x7b8 <__LOCK_REGION_LENGTH__+0x3b8>
+						{
+							turnOnLED(& reg_vals, column, 9);
+ 7ac:	49 e0       	ldi	r20, 0x09	; 9
+ 7ae:	50 e0       	ldi	r21, 0x00	; 0
+ 7b0:	b7 01       	movw	r22, r14
+ 7b2:	ce 01       	movw	r24, r28
+ 7b4:	09 96       	adiw	r24, 0x09	; 9
+ 7b6:	bb dc       	rcall	.-1674   	; 0x12e <turnOnLED>
+						}
+						
+						writeRegVals(dataPin, clockPin, latchPin, & reg_vals);
+ 7b8:	9e 01       	movw	r18, r28
+ 7ba:	27 5f       	subi	r18, 0xF7	; 247
+ 7bc:	3f 4f       	sbci	r19, 0xFF	; 255
+ 7be:	42 e0       	ldi	r20, 0x02	; 2
+ 7c0:	61 e0       	ldi	r22, 0x01	; 1
+ 7c2:	80 e0       	ldi	r24, 0x00	; 0
+ 7c4:	13 dd       	rcall	.-1498   	; 0x1ec <writeRegVals>
+						
+						int reg_vals_2[4] = {0,0,0,0}; //initial register values
+ 7c6:	fe 01       	movw	r30, r28
+ 7c8:	31 96       	adiw	r30, 0x01	; 1
+ 7ca:	88 e0       	ldi	r24, 0x08	; 8
+ 7cc:	df 01       	movw	r26, r30
+ 7ce:	1d 92       	st	X+, r1
+ 7d0:	8a 95       	dec	r24
+ 7d2:	e9 f7       	brne	.-6      	; 0x7ce <__LOCK_REGION_LENGTH__+0x3ce>
+						
+						if (val == 1)
+ 7d4:	01 30       	cpi	r16, 0x01	; 1
+ 7d6:	11 05       	cpc	r17, r1
+ 7d8:	49 f4       	brne	.+18     	; 0x7ec <__LOCK_REGION_LENGTH__+0x3ec>
+						{
+							turnOnLED(& reg_vals_2, (17 - column), 0);
+ 7da:	61 e1       	ldi	r22, 0x11	; 17
+ 7dc:	70 e0       	ldi	r23, 0x00	; 0
+ 7de:	6e 19       	sub	r22, r14
+ 7e0:	7f 09       	sbc	r23, r15
+ 7e2:	40 e0       	ldi	r20, 0x00	; 0
+ 7e4:	50 e0       	ldi	r21, 0x00	; 0
+ 7e6:	cf 01       	movw	r24, r30
+ 7e8:	a2 dc       	rcall	.-1724   	; 0x12e <turnOnLED>
+ 7ea:	23 c0       	rjmp	.+70     	; 0x832 <__LOCK_REGION_LENGTH__+0x432>
+						}
+						else if (val < 11)
+ 7ec:	0b 30       	cpi	r16, 0x0B	; 11
+ 7ee:	11 05       	cpc	r17, r1
+ 7f0:	a4 f4       	brge	.+40     	; 0x81a <__LOCK_REGION_LENGTH__+0x41a>
+						{
+							turnOnLED(& reg_vals_2, (17 - column), val - 2);
+ 7f2:	81 e1       	ldi	r24, 0x11	; 17
+ 7f4:	90 e0       	ldi	r25, 0x00	; 0
+ 7f6:	6c 01       	movw	r12, r24
+ 7f8:	ce 18       	sub	r12, r14
+ 7fa:	df 08       	sbc	r13, r15
+ 7fc:	a8 01       	movw	r20, r16
+ 7fe:	42 50       	subi	r20, 0x02	; 2
+ 800:	51 09       	sbc	r21, r1
+ 802:	b6 01       	movw	r22, r12
+ 804:	ce 01       	movw	r24, r28
+ 806:	01 96       	adiw	r24, 0x01	; 1
+ 808:	92 dc       	rcall	.-1756   	; 0x12e <turnOnLED>
+							turnOnLED(& reg_vals_2, (17 - column), val - 1);
+ 80a:	a8 01       	movw	r20, r16
+ 80c:	41 50       	subi	r20, 0x01	; 1
+ 80e:	51 09       	sbc	r21, r1
+ 810:	b6 01       	movw	r22, r12
+ 812:	ce 01       	movw	r24, r28
+ 814:	01 96       	adiw	r24, 0x01	; 1
+ 816:	8b dc       	rcall	.-1770   	; 0x12e <turnOnLED>
+ 818:	0c c0       	rjmp	.+24     	; 0x832 <__LOCK_REGION_LENGTH__+0x432>
+						}
+						else if (val == 11)
+ 81a:	0b 30       	cpi	r16, 0x0B	; 11
+ 81c:	11 05       	cpc	r17, r1
+ 81e:	49 f4       	brne	.+18     	; 0x832 <__LOCK_REGION_LENGTH__+0x432>
+						{
+							turnOnLED(& reg_vals_2, (17 - column), 9);
+ 820:	61 e1       	ldi	r22, 0x11	; 17
+ 822:	70 e0       	ldi	r23, 0x00	; 0
+ 824:	6e 19       	sub	r22, r14
+ 826:	7f 09       	sbc	r23, r15
+ 828:	49 e0       	ldi	r20, 0x09	; 9
+ 82a:	50 e0       	ldi	r21, 0x00	; 0
+ 82c:	ce 01       	movw	r24, r28
+ 82e:	01 96       	adiw	r24, 0x01	; 1
+ 830:	7e dc       	rcall	.-1796   	; 0x12e <turnOnLED>
+						}
+						
+						writeRegVals(dataPin, clockPin, latchPin, & reg_vals_2);
+ 832:	9e 01       	movw	r18, r28
+ 834:	2f 5f       	subi	r18, 0xFF	; 255
+ 836:	3f 4f       	sbci	r19, 0xFF	; 255
+ 838:	42 e0       	ldi	r20, 0x02	; 2
+ 83a:	61 e0       	ldi	r22, 0x01	; 1
+ 83c:	80 e0       	ldi	r24, 0x00	; 0
+ 83e:	d6 dc       	rcall	.-1620   	; 0x1ec <writeRegVals>
+						
+						val++; // increment pattern index for the first column
+ 840:	0f 5f       	subi	r16, 0xFF	; 255
+ 842:	1f 4f       	sbci	r17, 0xFF	; 255
+						if (val > 11)
+ 844:	0c 30       	cpi	r16, 0x0C	; 12
+ 846:	11 05       	cpc	r17, r1
+ 848:	14 f0       	brlt	.+4      	; 0x84e <__LOCK_REGION_LENGTH__+0x44e>
+						{
+							val = 0; // reset pattern index for first column
+ 84a:	00 e0       	ldi	r16, 0x00	; 0
+ 84c:	10 e0       	ldi	r17, 0x00	; 0
+				t2 = millis();
+				while (t2 - t1 < t) // display one frame for t milliseconds
+				{
+					
+					int val = i; //first column pattern index
+					for (int column = 0; column < 18; column++) //iterate through all the columns and turn on relevant LEDs for one frame
+ 84e:	bf ef       	ldi	r27, 0xFF	; 255
+ 850:	eb 1a       	sub	r14, r27
+ 852:	fb 0a       	sbc	r15, r27
+ 854:	03 c0       	rjmp	.+6      	; 0x85c <__LOCK_REGION_LENGTH__+0x45c>
+ 856:	85 01       	movw	r16, r10
+ 858:	e1 2c       	mov	r14, r1
+ 85a:	f1 2c       	mov	r15, r1
+ 85c:	e2 e1       	ldi	r30, 0x12	; 18
+ 85e:	ee 16       	cp	r14, r30
+ 860:	f1 04       	cpc	r15, r1
+ 862:	0c f4       	brge	.+2      	; 0x866 <__LOCK_REGION_LENGTH__+0x466>
+ 864:	7e cf       	rjmp	.-260    	; 0x762 <__LOCK_REGION_LENGTH__+0x362>
+						{
+							val = 0; // reset pattern index for first column
+						}
+					}
+					
+					t2 = millis();
+ 866:	f7 db       	rcall	.-2066   	; 0x56 <millis>
+ 868:	60 93 62 00 	sts	0x0062, r22	; 0x800062 <__data_end>
+ 86c:	70 93 63 00 	sts	0x0063, r23	; 0x800063 <__data_end+0x1>
+ 870:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <__data_end+0x2>
+ 874:	90 93 65 00 	sts	0x0065, r25	; 0x800065 <__data_end+0x3>
+		{
+			for(int i = 0; i < 12; i++) // loop for iterating through all 12 patterns in column 0
+			{
+				t1 = millis();
+				t2 = millis();
+				while (t2 - t1 < t) // display one frame for t milliseconds
+ 878:	40 91 62 00 	lds	r20, 0x0062	; 0x800062 <__data_end>
+ 87c:	50 91 63 00 	lds	r21, 0x0063	; 0x800063 <__data_end+0x1>
+ 880:	60 91 64 00 	lds	r22, 0x0064	; 0x800064 <__data_end+0x2>
+ 884:	70 91 65 00 	lds	r23, 0x0065	; 0x800065 <__data_end+0x3>
+ 888:	80 91 66 00 	lds	r24, 0x0066	; 0x800066 <t1>
+ 88c:	90 91 67 00 	lds	r25, 0x0067	; 0x800067 <t1+0x1>
+ 890:	a0 91 68 00 	lds	r26, 0x0068	; 0x800068 <t1+0x2>
+ 894:	b0 91 69 00 	lds	r27, 0x0069	; 0x800069 <t1+0x3>
+ 898:	48 1b       	sub	r20, r24
+ 89a:	59 0b       	sbc	r21, r25
+ 89c:	6a 0b       	sbc	r22, r26
+ 89e:	7b 0b       	sbc	r23, r27
+ 8a0:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 8a4:	90 e0       	ldi	r25, 0x00	; 0
+ 8a6:	a0 e0       	ldi	r26, 0x00	; 0
+ 8a8:	b0 e0       	ldi	r27, 0x00	; 0
+ 8aa:	48 17       	cp	r20, r24
+ 8ac:	59 07       	cpc	r21, r25
+ 8ae:	6a 07       	cpc	r22, r26
+ 8b0:	7b 07       	cpc	r23, r27
+ 8b2:	88 f2       	brcs	.-94     	; 0x856 <__LOCK_REGION_LENGTH__+0x456>
+		
+		pattern_start_time = millis();
+		pattern_time = millis();
+		while (pattern_time - pattern_start_time < 60000)
+		{
+			for(int i = 0; i < 12; i++) // loop for iterating through all 12 patterns in column 0
+ 8b4:	ff ef       	ldi	r31, 0xFF	; 255
+ 8b6:	af 1a       	sub	r10, r31
+ 8b8:	bf 0a       	sbc	r11, r31
+ 8ba:	02 c0       	rjmp	.+4      	; 0x8c0 <__LOCK_REGION_LENGTH__+0x4c0>
+ 8bc:	a1 2c       	mov	r10, r1
+ 8be:	b1 2c       	mov	r11, r1
+ 8c0:	2c e0       	ldi	r18, 0x0C	; 12
+ 8c2:	a2 16       	cp	r10, r18
+ 8c4:	b1 04       	cpc	r11, r1
+ 8c6:	0c f4       	brge	.+2      	; 0x8ca <__LOCK_REGION_LENGTH__+0x4ca>
+ 8c8:	39 cf       	rjmp	.-398    	; 0x73c <__LOCK_REGION_LENGTH__+0x33c>
+					
+				}
+				
+			}
+			
+			pattern_time = millis();
+ 8ca:	c5 db       	rcall	.-2166   	; 0x56 <millis>
+		
+		t = 150;
+		
+		pattern_start_time = millis();
+		pattern_time = millis();
+		while (pattern_time - pattern_start_time < 60000)
+ 8cc:	dc 01       	movw	r26, r24
+ 8ce:	cb 01       	movw	r24, r22
+ 8d0:	84 19       	sub	r24, r4
+ 8d2:	95 09       	sbc	r25, r5
+ 8d4:	a6 09       	sbc	r26, r6
+ 8d6:	b7 09       	sbc	r27, r7
+ 8d8:	80 36       	cpi	r24, 0x60	; 96
+ 8da:	9a 4e       	sbci	r25, 0xEA	; 234
+ 8dc:	a1 05       	cpc	r26, r1
+ 8de:	b1 05       	cpc	r27, r1
+ 8e0:	68 f3       	brcs	.-38     	; 0x8bc <__LOCK_REGION_LENGTH__+0x4bc>
+			pattern_time = millis();
+		}
+		
+		//5th pattern
+		
+		t= 150;
+ 8e2:	86 e9       	ldi	r24, 0x96	; 150
+ 8e4:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+		
+		pattern_start_time = millis();
+ 8e8:	b6 db       	rcall	.-2196   	; 0x56 <millis>
+ 8ea:	4b 01       	movw	r8, r22
+ 8ec:	5c 01       	movw	r10, r24
+		pattern_time = millis();
+		while (pattern_time - pattern_start_time < 60000)
+ 8ee:	a2 c0       	rjmp	.+324    	; 0xa34 <__LOCK_REGION_LENGTH__+0x634>
+		{
+			t1 = millis();
+ 8f0:	b2 db       	rcall	.-2204   	; 0x56 <millis>
+ 8f2:	60 93 66 00 	sts	0x0066, r22	; 0x800066 <t1>
+ 8f6:	70 93 67 00 	sts	0x0067, r23	; 0x800067 <t1+0x1>
+ 8fa:	80 93 68 00 	sts	0x0068, r24	; 0x800068 <t1+0x2>
+ 8fe:	90 93 69 00 	sts	0x0069, r25	; 0x800069 <t1+0x3>
+			t2 = millis();
+ 902:	a9 db       	rcall	.-2222   	; 0x56 <millis>
+ 904:	60 93 62 00 	sts	0x0062, r22	; 0x800062 <__data_end>
+ 908:	70 93 63 00 	sts	0x0063, r23	; 0x800063 <__data_end+0x1>
+ 90c:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <__data_end+0x2>
+ 910:	90 93 65 00 	sts	0x0065, r25	; 0x800065 <__data_end+0x3>
+			while (t2 - t1 < t) // display one frame for t milliseconds
+ 914:	70 c0       	rjmp	.+224    	; 0x9f6 <__LOCK_REGION_LENGTH__+0x5f6>
+			{
+					
+				for (int column = 0; column < 18; column++) //iterate through all the columns and turn on relevant LEDs for one frame
+				{
+					int reg_vals[4] = {0,0,0,0}; //initial register values
+ 916:	8e 01       	movw	r16, r28
+ 918:	0f 5f       	subi	r16, 0xFF	; 255
+ 91a:	1f 4f       	sbci	r17, 0xFF	; 255
+ 91c:	88 e0       	ldi	r24, 0x08	; 8
+ 91e:	d8 01       	movw	r26, r16
+ 920:	1d 92       	st	X+, r1
+ 922:	8a 95       	dec	r24
+ 924:	e9 f7       	brne	.-6      	; 0x920 <__LOCK_REGION_LENGTH__+0x520>
+						
+					turnOnLED(& reg_vals, column, 0);
+ 926:	40 e0       	ldi	r20, 0x00	; 0
+ 928:	50 e0       	ldi	r21, 0x00	; 0
+ 92a:	b7 01       	movw	r22, r14
+ 92c:	c8 01       	movw	r24, r16
+ 92e:	ff db       	rcall	.-2050   	; 0x12e <turnOnLED>
+					writeRegVals(dataPin, clockPin, latchPin, & reg_vals);
+ 930:	98 01       	movw	r18, r16
+ 932:	42 e0       	ldi	r20, 0x02	; 2
+ 934:	61 e0       	ldi	r22, 0x01	; 1
+ 936:	80 e0       	ldi	r24, 0x00	; 0
+ 938:	59 dc       	rcall	.-1870   	; 0x1ec <writeRegVals>
+					
+					int pattern_index = column % 9;
+ 93a:	c7 01       	movw	r24, r14
+ 93c:	69 e0       	ldi	r22, 0x09	; 9
+ 93e:	70 e0       	ldi	r23, 0x00	; 0
+ 940:	ab d0       	rcall	.+342    	; 0xa98 <__divmodhi4>
+ 942:	8c 01       	movw	r16, r24
+ 944:	6c 01       	movw	r12, r24
+						
+					if (0 < pattern_index && pattern_index < 8)
+ 946:	01 97       	sbiw	r24, 0x01	; 1
+ 948:	07 97       	sbiw	r24, 0x07	; 7
+ 94a:	68 f4       	brcc	.+26     	; 0x966 <__LOCK_REGION_LENGTH__+0x566>
+					{
+						turnOnLED(& reg_vals, column, 1);
+ 94c:	41 e0       	ldi	r20, 0x01	; 1
+ 94e:	50 e0       	ldi	r21, 0x00	; 0
+ 950:	b7 01       	movw	r22, r14
+ 952:	ce 01       	movw	r24, r28
+ 954:	01 96       	adiw	r24, 0x01	; 1
+ 956:	eb db       	rcall	.-2090   	; 0x12e <turnOnLED>
+						writeRegVals(dataPin, clockPin, latchPin, & reg_vals);
+ 958:	9e 01       	movw	r18, r28
+ 95a:	2f 5f       	subi	r18, 0xFF	; 255
+ 95c:	3f 4f       	sbci	r19, 0xFF	; 255
+ 95e:	42 e0       	ldi	r20, 0x02	; 2
+ 960:	61 e0       	ldi	r22, 0x01	; 1
+ 962:	80 e0       	ldi	r24, 0x00	; 0
+ 964:	43 dc       	rcall	.-1914   	; 0x1ec <writeRegVals>
+					}
+						
+					if (1 < pattern_index && pattern_index < 7)
+ 966:	c8 01       	movw	r24, r16
+ 968:	02 97       	sbiw	r24, 0x02	; 2
+ 96a:	05 97       	sbiw	r24, 0x05	; 5
+ 96c:	68 f4       	brcc	.+26     	; 0x988 <__LOCK_REGION_LENGTH__+0x588>
+					{
+						turnOnLED(& reg_vals, column, 2);
+ 96e:	42 e0       	ldi	r20, 0x02	; 2
+ 970:	50 e0       	ldi	r21, 0x00	; 0
+ 972:	b7 01       	movw	r22, r14
+ 974:	ce 01       	movw	r24, r28
+ 976:	01 96       	adiw	r24, 0x01	; 1
+ 978:	da db       	rcall	.-2124   	; 0x12e <turnOnLED>
+						writeRegVals(dataPin, clockPin, latchPin, & reg_vals);
+ 97a:	9e 01       	movw	r18, r28
+ 97c:	2f 5f       	subi	r18, 0xFF	; 255
+ 97e:	3f 4f       	sbci	r19, 0xFF	; 255
+ 980:	42 e0       	ldi	r20, 0x02	; 2
+ 982:	61 e0       	ldi	r22, 0x01	; 1
+ 984:	80 e0       	ldi	r24, 0x00	; 0
+ 986:	32 dc       	rcall	.-1948   	; 0x1ec <writeRegVals>
+					}
+						
+					if (2 < pattern_index && pattern_index < 6)
+ 988:	03 50       	subi	r16, 0x03	; 3
+ 98a:	11 09       	sbc	r17, r1
+ 98c:	03 30       	cpi	r16, 0x03	; 3
+ 98e:	11 05       	cpc	r17, r1
+ 990:	68 f4       	brcc	.+26     	; 0x9ac <__LOCK_REGION_LENGTH__+0x5ac>
+					{
+						turnOnLED(& reg_vals, column, 3);
+ 992:	43 e0       	ldi	r20, 0x03	; 3
+ 994:	50 e0       	ldi	r21, 0x00	; 0
+ 996:	b7 01       	movw	r22, r14
+ 998:	ce 01       	movw	r24, r28
+ 99a:	01 96       	adiw	r24, 0x01	; 1
+ 99c:	c8 db       	rcall	.-2160   	; 0x12e <turnOnLED>
+						writeRegVals(dataPin, clockPin, latchPin, & reg_vals);
+ 99e:	9e 01       	movw	r18, r28
+ 9a0:	2f 5f       	subi	r18, 0xFF	; 255
+ 9a2:	3f 4f       	sbci	r19, 0xFF	; 255
+ 9a4:	42 e0       	ldi	r20, 0x02	; 2
+ 9a6:	61 e0       	ldi	r22, 0x01	; 1
+ 9a8:	80 e0       	ldi	r24, 0x00	; 0
+ 9aa:	20 dc       	rcall	.-1984   	; 0x1ec <writeRegVals>
+					}
+						
+					if (pattern_index == 4)
+ 9ac:	b4 e0       	ldi	r27, 0x04	; 4
+ 9ae:	cb 16       	cp	r12, r27
+ 9b0:	d1 04       	cpc	r13, r1
+ 9b2:	69 f4       	brne	.+26     	; 0x9ce <__LOCK_REGION_LENGTH__+0x5ce>
+					{
+						turnOnLED(& reg_vals, column, 4);
+ 9b4:	44 e0       	ldi	r20, 0x04	; 4
+ 9b6:	50 e0       	ldi	r21, 0x00	; 0
+ 9b8:	b7 01       	movw	r22, r14
+ 9ba:	ce 01       	movw	r24, r28
+ 9bc:	01 96       	adiw	r24, 0x01	; 1
+ 9be:	b7 db       	rcall	.-2194   	; 0x12e <turnOnLED>
+						writeRegVals(dataPin, clockPin, latchPin, & reg_vals);
+ 9c0:	9e 01       	movw	r18, r28
+ 9c2:	2f 5f       	subi	r18, 0xFF	; 255
+ 9c4:	3f 4f       	sbci	r19, 0xFF	; 255
+ 9c6:	42 e0       	ldi	r20, 0x02	; 2
+ 9c8:	61 e0       	ldi	r22, 0x01	; 1
+ 9ca:	80 e0       	ldi	r24, 0x00	; 0
+ 9cc:	0f dc       	rcall	.-2018   	; 0x1ec <writeRegVals>
+			t1 = millis();
+			t2 = millis();
+			while (t2 - t1 < t) // display one frame for t milliseconds
+			{
+					
+				for (int column = 0; column < 18; column++) //iterate through all the columns and turn on relevant LEDs for one frame
+ 9ce:	ef ef       	ldi	r30, 0xFF	; 255
+ 9d0:	ee 1a       	sub	r14, r30
+ 9d2:	fe 0a       	sbc	r15, r30
+ 9d4:	02 c0       	rjmp	.+4      	; 0x9da <__LOCK_REGION_LENGTH__+0x5da>
+ 9d6:	e1 2c       	mov	r14, r1
+ 9d8:	f1 2c       	mov	r15, r1
+ 9da:	f2 e1       	ldi	r31, 0x12	; 18
+ 9dc:	ef 16       	cp	r14, r31
+ 9de:	f1 04       	cpc	r15, r1
+ 9e0:	0c f4       	brge	.+2      	; 0x9e4 <__LOCK_REGION_LENGTH__+0x5e4>
+ 9e2:	99 cf       	rjmp	.-206    	; 0x916 <__LOCK_REGION_LENGTH__+0x516>
+						writeRegVals(dataPin, clockPin, latchPin, & reg_vals);
+					}
+						
+				}
+					
+				t2 = millis();
+ 9e4:	38 db       	rcall	.-2448   	; 0x56 <millis>
+ 9e6:	60 93 62 00 	sts	0x0062, r22	; 0x800062 <__data_end>
+ 9ea:	70 93 63 00 	sts	0x0063, r23	; 0x800063 <__data_end+0x1>
+ 9ee:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <__data_end+0x2>
+ 9f2:	90 93 65 00 	sts	0x0065, r25	; 0x800065 <__data_end+0x3>
+		pattern_time = millis();
+		while (pattern_time - pattern_start_time < 60000)
+		{
+			t1 = millis();
+			t2 = millis();
+			while (t2 - t1 < t) // display one frame for t milliseconds
+ 9f6:	40 91 62 00 	lds	r20, 0x0062	; 0x800062 <__data_end>
+ 9fa:	50 91 63 00 	lds	r21, 0x0063	; 0x800063 <__data_end+0x1>
+ 9fe:	60 91 64 00 	lds	r22, 0x0064	; 0x800064 <__data_end+0x2>
+ a02:	70 91 65 00 	lds	r23, 0x0065	; 0x800065 <__data_end+0x3>
+ a06:	80 91 66 00 	lds	r24, 0x0066	; 0x800066 <t1>
+ a0a:	90 91 67 00 	lds	r25, 0x0067	; 0x800067 <t1+0x1>
+ a0e:	a0 91 68 00 	lds	r26, 0x0068	; 0x800068 <t1+0x2>
+ a12:	b0 91 69 00 	lds	r27, 0x0069	; 0x800069 <t1+0x3>
+ a16:	48 1b       	sub	r20, r24
+ a18:	59 0b       	sbc	r21, r25
+ a1a:	6a 0b       	sbc	r22, r26
+ a1c:	7b 0b       	sbc	r23, r27
+ a1e:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ a22:	90 e0       	ldi	r25, 0x00	; 0
+ a24:	a0 e0       	ldi	r26, 0x00	; 0
+ a26:	b0 e0       	ldi	r27, 0x00	; 0
+ a28:	48 17       	cp	r20, r24
+ a2a:	59 07       	cpc	r21, r25
+ a2c:	6a 07       	cpc	r22, r26
+ a2e:	7b 07       	cpc	r23, r27
+ a30:	90 f2       	brcs	.-92     	; 0x9d6 <__LOCK_REGION_LENGTH__+0x5d6>
+					
+				t2 = millis();
+				
+			}
+			
+			pattern_time = millis();
+ a32:	11 db       	rcall	.-2526   	; 0x56 <millis>
+		
+		t= 150;
+		
+		pattern_start_time = millis();
+		pattern_time = millis();
+		while (pattern_time - pattern_start_time < 60000)
+ a34:	dc 01       	movw	r26, r24
+ a36:	cb 01       	movw	r24, r22
+ a38:	88 19       	sub	r24, r8
+ a3a:	99 09       	sbc	r25, r9
+ a3c:	aa 09       	sbc	r26, r10
+ a3e:	bb 09       	sbc	r27, r11
+ a40:	80 36       	cpi	r24, 0x60	; 96
+ a42:	9a 4e       	sbci	r25, 0xEA	; 234
+ a44:	a1 05       	cpc	r26, r1
+ a46:	b1 05       	cpc	r27, r1
+ a48:	08 f4       	brcc	.+2      	; 0xa4c <__LOCK_REGION_LENGTH__+0x64c>
+ a4a:	52 cf       	rjmp	.-348    	; 0x8f0 <__LOCK_REGION_LENGTH__+0x4f0>
+ a4c:	2f cc       	rjmp	.-1954   	; 0x2ac <main+0x28>
+
+00000a4e <__vector_10>:
+		
+    }
+}
+
+ISR(TIMER0_COMPA_vect) //ISR for timer
+{
+ a4e:	1f 92       	push	r1
+ a50:	0f 92       	push	r0
+ a52:	0f b6       	in	r0, 0x3f	; 63
+ a54:	0f 92       	push	r0
+ a56:	11 24       	eor	r1, r1
+ a58:	8f 93       	push	r24
+ a5a:	9f 93       	push	r25
+ a5c:	af 93       	push	r26
+ a5e:	bf 93       	push	r27
+	time_from_start++;
+ a60:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <time_from_start>
+ a64:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <time_from_start+0x1>
+ a68:	a0 91 6c 00 	lds	r26, 0x006C	; 0x80006c <time_from_start+0x2>
+ a6c:	b0 91 6d 00 	lds	r27, 0x006D	; 0x80006d <time_from_start+0x3>
+ a70:	01 96       	adiw	r24, 0x01	; 1
+ a72:	a1 1d       	adc	r26, r1
+ a74:	b1 1d       	adc	r27, r1
+ a76:	80 93 6a 00 	sts	0x006A, r24	; 0x80006a <time_from_start>
+ a7a:	90 93 6b 00 	sts	0x006B, r25	; 0x80006b <time_from_start+0x1>
+ a7e:	a0 93 6c 00 	sts	0x006C, r26	; 0x80006c <time_from_start+0x2>
+ a82:	b0 93 6d 00 	sts	0x006D, r27	; 0x80006d <time_from_start+0x3>
+}
+ a86:	bf 91       	pop	r27
+ a88:	af 91       	pop	r26
+ a8a:	9f 91       	pop	r25
+ a8c:	8f 91       	pop	r24
+ a8e:	0f 90       	pop	r0
+ a90:	0f be       	out	0x3f, r0	; 63
+ a92:	0f 90       	pop	r0
+ a94:	1f 90       	pop	r1
+ a96:	18 95       	reti
+
+00000a98 <__divmodhi4>:
+ a98:	97 fb       	bst	r25, 7
+ a9a:	07 2e       	mov	r0, r23
+ a9c:	16 f4       	brtc	.+4      	; 0xaa2 <__divmodhi4+0xa>
+ a9e:	00 94       	com	r0
+ aa0:	06 d0       	rcall	.+12     	; 0xaae <__divmodhi4_neg1>
+ aa2:	77 fd       	sbrc	r23, 7
+ aa4:	08 d0       	rcall	.+16     	; 0xab6 <__divmodhi4_neg2>
+ aa6:	0b d0       	rcall	.+22     	; 0xabe <__udivmodhi4>
+ aa8:	07 fc       	sbrc	r0, 7
+ aaa:	05 d0       	rcall	.+10     	; 0xab6 <__divmodhi4_neg2>
+ aac:	3e f4       	brtc	.+14     	; 0xabc <__divmodhi4_exit>
+
+00000aae <__divmodhi4_neg1>:
+ aae:	90 95       	com	r25
+ ab0:	81 95       	neg	r24
+ ab2:	9f 4f       	sbci	r25, 0xFF	; 255
+ ab4:	08 95       	ret
+
+00000ab6 <__divmodhi4_neg2>:
+ ab6:	70 95       	com	r23
+ ab8:	61 95       	neg	r22
+ aba:	7f 4f       	sbci	r23, 0xFF	; 255
+
+00000abc <__divmodhi4_exit>:
+ abc:	08 95       	ret
+
+00000abe <__udivmodhi4>:
+ abe:	aa 1b       	sub	r26, r26
+ ac0:	bb 1b       	sub	r27, r27
+ ac2:	51 e1       	ldi	r21, 0x11	; 17
+ ac4:	07 c0       	rjmp	.+14     	; 0xad4 <__udivmodhi4_ep>
+
+00000ac6 <__udivmodhi4_loop>:
+ ac6:	aa 1f       	adc	r26, r26
+ ac8:	bb 1f       	adc	r27, r27
+ aca:	a6 17       	cp	r26, r22
+ acc:	b7 07       	cpc	r27, r23
+ ace:	10 f0       	brcs	.+4      	; 0xad4 <__udivmodhi4_ep>
+ ad0:	a6 1b       	sub	r26, r22
+ ad2:	b7 0b       	sbc	r27, r23
+
+00000ad4 <__udivmodhi4_ep>:
+ ad4:	88 1f       	adc	r24, r24
+ ad6:	99 1f       	adc	r25, r25
+ ad8:	5a 95       	dec	r21
+ ada:	a9 f7       	brne	.-22     	; 0xac6 <__udivmodhi4_loop>
+ adc:	80 95       	com	r24
+ ade:	90 95       	com	r25
+ ae0:	bc 01       	movw	r22, r24
+ ae2:	cd 01       	movw	r24, r26
+ ae4:	08 95       	ret
+
+00000ae6 <_exit>:
+ ae6:	f8 94       	cli
+
+00000ae8 <__stop_program>:
+ ae8:	ff cf       	rjmp	.-2      	; 0xae8 <__stop_program>
