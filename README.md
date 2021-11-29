@@ -7,4 +7,4 @@ Create a Buddhuras Malawa using Attiny85 microcontroller, 74HC595N shift registo
 ![alt text](https://github.com/kpgs123/Buddhuras-Malawa/blob/main/Circuit%201.jpg?raw=true)
 
 
-![alt text](https://github.com/kpgs123/Buddhuras-Malawa/blob/main/Circuit%202.jpg?raw=true)
+                                              ![alt text](https://github.com/kpgs123/Buddhuras-Malawa/blob/main/Circuit%202.jpg?raw=true)
